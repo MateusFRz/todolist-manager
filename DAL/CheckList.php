@@ -3,15 +3,15 @@
 
 class CheckList {
 
-    private string $name;
-    private array $tasks = [];
+    private $name;
+    private $tasks = [];
 
     /**
      * CheckList constructor.
      * @param $tasks Task[]
      * @param $name string
      */
-    public function __construct($name, $tasks) {
+    public function __construct(string $name, array $tasks) {
         $this->name = $name;
         $this->tasks = $tasks;
     }
