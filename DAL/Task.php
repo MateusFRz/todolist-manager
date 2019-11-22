@@ -2,8 +2,9 @@
 
 class Task {
 
-    private string $name, $description;
-    private bool $done;
+    private $name;
+    private $description;
+    private $done;
 
     /**
      * Task constructor.

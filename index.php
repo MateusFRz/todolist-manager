@@ -15,6 +15,6 @@ $tasks = array(
     new Task("tâche 4", "Description 4", false)
 );
 
-$checkList = new CheckList("Ma liste", $tasks);
+$checkLists = new CheckList("Ma liste", $tasks);
 
 require_once "view/vue.php";
