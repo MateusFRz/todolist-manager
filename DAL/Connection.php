@@ -2,15 +2,22 @@
 
 class Connection extends PDO {
 
-    private $stmt;
+    private PDOStatement $stmt;
 
+    /**
+     * Connection constructor.
+     * @param $dsn
+     * @param $username
+     * @param $passwd
+     */
     public function __construct($dsn, $username, $passwd) {
         parent::__construct($dsn, $username, $passwd);
         $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    /** * @param string $query
-     * @param array $parameters *
+    /**
+     * @param string $query
+     * @param array $parameters
      * @return bool Returns `true` on success, `false` otherwise
      */
     public function executeQuery(string $query, array $parameters = []): bool {
@@ -21,6 +28,9 @@ class Connection extends PDO {
         return $this->stmt->execute();
     }
 
+    /**
+     * @return mixed
+     */
     public function getResults() {
         return $this->stmt->fetchall();
     }
