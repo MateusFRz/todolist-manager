@@ -2,7 +2,7 @@
 
 class Connection extends PDO {
 
-    private PDOStatement $stmt;
+    private $stmt;
 
     /**
      * Connection constructor.

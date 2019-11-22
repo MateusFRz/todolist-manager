@@ -24,6 +24,16 @@ class CheckList {
         return $this->tasks;
     }
 
+    /**
+     * Return checklist name
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+
 
     /**
      * Add a task to checklist tasks
