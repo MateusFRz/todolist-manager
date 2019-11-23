@@ -8,18 +8,33 @@ class TaskGateway {
         $this->con = $con;
     }
 
-    public function findTask($userID) {
+    public function findTaskByID($taskID) {
 
-        $query = 'SELECT * FROM `task` WHERE id  = :id;';
+        $query = 'SELECT name, description, done FROM `task` WHERE id  = :id;';
 
-        $this->con->execteQuery($query, array(
-            ':id' => array($userID, PDO::PARAM_INT)
+        $this->con->executeQuery($query, array(
+            ':id' => array($taskID, PDO::PARAM_INT)
         ));
-
-        return $this->con->getResults();
+        
+        $result = $this->con->getResults()[0];
+        return new Task($result['name'], $result['description'], $result['done']);
     }
 
-    public function insertTask(Task $task,$id_checklist) {
+    public function findTaskByChecklistID($checklistID) {
+        $query =  'SELECT name, description, done FROM task WHERE id_checklist=:id_checklist;';
+        $tasks=[];
+
+        $this->con->executeQuery($query, array(
+            ':id_checklist' => [$checklistID, PDO::PARAM_INT]
+        ));
+
+        foreach ($this->con->getResults() as $task)
+            $tasks[] = new Task($task['name'], $task['description'], $task['done']);
+
+        return $tasks;
+    }
+
+    public function insertTask(Task $task, $id_checklist) {
         $query = 'INSERT INTO task VALUES(:name, :description, :done, :id_checklist);';
 
         $this->con->executeQuery($query, array(
