@@ -1,19 +1,22 @@
 <?php
 
 
-class CheckList {
+class Checklist {
 
     private $name;
     private $tasks;
+    private $visibility;
 
     /**
      * CheckList constructor.
-     * @param $tasks Task[]
      * @param $name string
+     * @param $tasks Task[]
+     * @param $visibility bool
      */
-    public function __construct(string $name, array $tasks) {
+    public function __construct(string $name, array $tasks, $visibility) {
         $this->name = $name;
         $this->tasks = $tasks;
+        $this->visibility = $visibility;
     }
 
     /**
@@ -33,7 +36,13 @@ class CheckList {
         return $this->name;
     }
 
-
+    /**
+     * Return if checklist is public or not
+     * @return bool true -> yes | false -> no
+     */
+    public function getVisibility() {
+        return $this->visibility;
+    }
 
     /**
      * Add a task to checklist tasks

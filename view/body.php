@@ -34,9 +34,7 @@
 
 <main role="main" class="container">
 
-    <?php
-        require_once "taskView.php";
-    ?>
+    <?php require_once "taskView.php"; ?>
 
 </main>
 </body>

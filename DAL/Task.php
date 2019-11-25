@@ -5,16 +5,19 @@ class Task {
     private $name;
     private $description;
     private $done;
+    private $id;
 
     /**
      * Task constructor.
+     * @param $id
      * @param $name
      * @param $description
      * @param $done
      */
-    public function __construct($name, $description, $done) {
+    public function __construct($id, $name, $description, $done) {
         $this->name = $name;
         $this->description = $description;
+        $this->id = $id;
         $this->done = ($done == 0 ? false : true);
     }
 
@@ -38,5 +41,13 @@ class Task {
     public function isDone() {
         return $this->done;
     }
+
+    /**
+     * @retrun int
+     */
+    public function getID() {
+        return$this->id;
+    }
+
 
 }
