@@ -10,20 +10,12 @@ require_once "DAL/CheckList.php";
 require_once "DAL/Task.php";
 require_once "DAL/Connection.php";
 
-require_once "model/CheckListGateway.php";
+require_once "model/ChecklistGateway.php";
 
 
-$db = new Connection("mysql:host=fr-phonix.fr;dbname=iut", "iut", "password");
-$checkListsGT = new CheckListGateway($db);
+$db = new Connection("mysql:host=localhost;dbname=iut", "iut", "password");
+$checkListGT = new ChecklistGateway($db);
 
-
-$tasks = array(
-    new Task("tâche 1", "Description 1", false),
-    new Task("tâche 2", "Description 2", false),
-    new Task("tâche 3", "Description 3", true),
-    new Task("tâche 4", "Description 4", false)
-);
-
-$checkLists = new CheckList("Ma liste", $tasks);
+$checkLists = $checkListGT->findChecklistByUser(525);
 
 require_once "view/vue.php";

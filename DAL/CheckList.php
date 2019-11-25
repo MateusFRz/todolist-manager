@@ -4,7 +4,7 @@
 class CheckList {
 
     private $name;
-    private $tasks = [];
+    private $tasks;
 
     /**
      * CheckList constructor.

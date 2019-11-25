@@ -15,7 +15,7 @@ class Task {
     public function __construct($name, $description, $done) {
         $this->name = $name;
         $this->description = $description;
-        $this->done = $done;
+        $this->done = ($done == 0 ? false : true);
     }
 
     /**
