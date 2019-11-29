@@ -5,19 +5,40 @@ class Checklist {
 
     private $name;
     private $tasks;
-    private $visibility;
+    private $public;
+    private $id;
 
     /**
-     * CheckList constructor.
-     * @param $name string
-     * @param $tasks Task[]
-     * @param $visibility bool
+     * Checklist constructor.
+     * @param $name
+     * @param $tasks
+     * @param $public
+     * @param $id
      */
-    public function __construct(string $name, array $tasks, $visibility) {
+    public function __construct($name, $tasks, $public, $id)
+    {
         $this->name = $name;
         $this->tasks = $tasks;
-        $this->visibility = $visibility;
+        $this->public = ($public == 0 ? false : true);
+        $this->id = $id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * Return all tasks of the checklist
@@ -40,8 +61,8 @@ class Checklist {
      * Return if checklist is public or not
      * @return bool true -> yes | false -> no
      */
-    public function getVisibility() {
-        return $this->visibility;
+    public function isPublic() {
+        return $this->public;
     }
 
     /**
