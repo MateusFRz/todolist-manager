@@ -10,7 +10,7 @@ class Validation {
      * @param string $string
      * @return string
      */
-    public function purify($string){
+    public static function purify($string){
         return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
     }
 

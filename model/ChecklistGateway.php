@@ -24,8 +24,22 @@ class ChecklistGateway {
         return $checklists;
     }
 
+    public function findChecklistByPublic($public) {
+        $query = 'SELECT id,name,visible FROM checklist where visible=:visible;';
+        $checklists = [];
+
+        $this->db->executeQuery($query, array(
+            ':visible' => [$public, PDO::PARAM_BOOL]
+        ));
+        foreach ($this->db->getResults() as $checklist) {
+            $tasks = $this->taskGT->findTaskByChecklistID($checklist['id']);
+            $checklists[] = new Checklist($checklist['name'], $tasks, $checklist['visible']);
+        }
+        return $checklists;
+    }
+
     public function updateChecklist($checklistID, Checklist $newChecklist) {
-        $query = 'UPDATE checklist SET name=:name, visible=:visibile WHERE id=:id;';
+        $query = 'UPDATE checklist SET name=:name, visible=:visible WHERE id=:id;';
         $this->db->executeQuery($query, array(
             ':name' => [$newChecklist->getName(), PDO::PARAM_STR],
             ':visible' => [$newChecklist->getVisibility(), PDO::PARAM_BOOL],
