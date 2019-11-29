@@ -3,39 +3,28 @@
 class ChecklistGateway {
 
     private $db;
-    private $taskGT;
 
     public function __construct(Connection $db) {
         $this->db=$db;
-        $this->taskGT = new TaskGateway($this->db);
     }
 
     public function findChecklistByUser($userID) {
         $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user;';
-        $checklists = [];
 
         $this->db->executeQuery($query, array(
                             ':id_user' => [$userID, PDO::PARAM_STR]
         ));
-        foreach ($this->db->getResults() as $checklist) {
-            $tasks = $this->taskGT->findTaskByChecklistID($checklist['id']);
-            $checklists[] = new Checklist($checklist['name'], $tasks, $checklist['visible']);
-        }
-        return $checklists;
+        return $this->db->getResults();
     }
 
     public function findChecklistByPublic($public) {
         $query = 'SELECT id,name,visible FROM checklist where visible=:visible;';
-        $checklists = [];
 
         $this->db->executeQuery($query, array(
             ':visible' => [$public, PDO::PARAM_BOOL]
         ));
-        foreach ($this->db->getResults() as $checklist) {
-            $tasks = $this->taskGT->findTaskByChecklistID($checklist['id']);
-            $checklists[] = new Checklist($checklist['name'], $tasks, $checklist['visible']);
-        }
-        return $checklists;
+
+        return $this->db->getResults();
     }
 
     public function updateChecklist($checklistID, Checklist $newChecklist) {
@@ -57,7 +46,7 @@ class ChecklistGateway {
         ));
     }
 
-    public function deleteChecklist($checklistID) {
+    public function deleteChecklist($checklistID, TaskGateway $taskGT) {
         $tasks = $this->taskGT->findTaskByChecklistID($checklistID);
         foreach ($tasks as $task)
             $this->taskGT->deleteTask($task->getID());

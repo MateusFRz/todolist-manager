@@ -16,22 +16,17 @@ class TaskGateway {
             ':id' => [$taskID, PDO::PARAM_INT]
         ));
         
-        $result = $this->db->getResults()[0];
-        return new Task($taskID, $result['name'], $result['description'], $result['done']);
+        return $this->db->getResults()[0];
     }
 
     public function findTaskByChecklistID($checklistID) {
         $query =  'SELECT id, name, description, done FROM task WHERE id_checklist=:id_checklist;';
-        $tasks=[];
 
         $this->db->executeQuery($query, array(
             ':id_checklist' => [$checklistID, PDO::PARAM_INT]
         ));
 
-        foreach ($this->db->getResults() as $task)
-            $tasks[] = new Task($task['id'], $task['name'], $task['description'], $task['done']);
-
-        return $tasks;
+        return $this->db->getResults();
     }
 
     public function updateTask($taskID, Task $newTask) {

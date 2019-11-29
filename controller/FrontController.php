@@ -10,7 +10,7 @@ class FrontController {
 
         switch ($action) {
             case NULL:
-                
+                new VisitorController();
                 break;
             default:
                 //error;
