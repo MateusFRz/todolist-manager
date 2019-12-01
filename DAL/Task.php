@@ -49,5 +49,14 @@ class Task {
         return$this->id;
     }
 
+ /*   public function __toString()
+    {
+       return "Tache: </br>".
+           $this->getID() . "</br>".
+           $this->getName() . "</br>".
+           $this->getDescription() . "</br>".
+           $this->isDone() . "</br>";
+    }
+*/
 
 }

@@ -1,13 +1,14 @@
 <div class="row">
-
-<?php foreach ($checkLists as $checkList): ?>
-    <div class="col-md-4">
+<?php
+$rowCount = 0;
+$numCols = 3;
+foreach ($checkLists as $checklist): ?>
+    <div class="col">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title"><?= $checkList->getName() ?></h5>
+                <h5 class="card-title"><?= $checklist->getName() ?></h5>
                 <ul class="list-unstyled">
-                    <?php foreach ($checkList->getTasks() as $task): ?>
-                    
+                    <?php foreach ($checklist->getTasks() as $task): ?>
                     <li><?php echo ($task->isDone() ? "<i class=\"fas fa-check-circle\"></i>" : "<i class=\"fas fa-times-circle\"></i>")
                             . " " . $task->getName() . " - " . $task->getDescription(); ?></li>
                     <?php endforeach; ?>
@@ -15,7 +16,8 @@
             </div>
         </div>
     </div>
-<?php endforeach; ?>
-
-
+<?php
+$rowCount++;
+if ($rowCount % $numCols == 0) echo "</div></br><div class=\"row\">";
+endforeach; ?>
 </div>

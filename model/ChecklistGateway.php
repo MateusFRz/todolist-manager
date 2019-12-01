@@ -31,7 +31,7 @@ class ChecklistGateway {
         $query = 'UPDATE checklist SET name=:name, visible=:visible WHERE id=:id;';
         $this->db->executeQuery($query, array(
             ':name' => [$newChecklist->getName(), PDO::PARAM_STR],
-            ':visible' => [$newChecklist->getVisibility(), PDO::PARAM_BOOL],
+            ':visible' => [$newChecklist->isPublic(), PDO::PARAM_BOOL],
             ':id' => [$checklistID, PDO::PARAM_INT]
         ));
     }
@@ -41,7 +41,7 @@ class ChecklistGateway {
 
         $this->db->executeQuery($query, array(
            ':name' => [$checklist->getName(), PDO::PARAM_STR],
-           ':visible' => [$checklist->getVisibility(), PDO::PARAM_BOOL],
+           ':visible' => [$checklist->isPublic(), PDO::PARAM_BOOL],
            ':userID' => [$userID, PDO::PARAM_INT]
         ));
     }
