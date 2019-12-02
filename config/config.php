@@ -6,3 +6,4 @@ $user = "iut_antoni";
 $password = "password";
 
 $errors = [];
+$successes = [];

@@ -10,7 +10,7 @@ class Validation {
      * @param string $string
      * @return string
      */
-    public static function purify($string){
+    public static function purify($string) {
         $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
         $string = filter_var($string, FILTER_SANITIZE_STRING);
         return $string;
@@ -23,9 +23,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isInt($value){
-        if(filter_var($value, FILTER_VALIDATE_INT)) return true;
-        return false;
+    public static function isInt($value) {
+        return filter_var($value, FILTER_VALIDATE_INT);
     }
 
     /**
@@ -35,9 +34,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isFloat($value){
-        if(filter_var($value, FILTER_VALIDATE_FLOAT)) return true;
-        return false;
+    public static function isFloat($value) {
+        return filter_var($value, FILTER_VALIDATE_FLOAT);
     }
 
     /**
@@ -47,9 +45,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isAlpha($value){
-        if(filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[a-zA-Z]+$/")))) return true;
-        return false;
+    public static function isAlpha($value) {
+        return preg_match("/^[a-zA-Z ]+$/", $value);
     }
 
     /**
@@ -59,9 +56,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isAlphaNum($value){
-        if(filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[a-zA-Z0-9]+$/")))) return true;
-        return false;
+    public static function isAlphaNum($value) {
+        return preg_match("/^[a-zA-Z0-9]+$/", $value);
     }
 
     /**
@@ -71,9 +67,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isUrl($value){
-        if(filter_var($value, FILTER_VALIDATE_URL)) return true;
-        return false;
+    public static function isUrl($value) {
+        return filter_var($value, FILTER_VALIDATE_URL);
     }
 
     /**
@@ -83,9 +78,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isUri($value){
-        if(filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[A-Za-z0-9-\/_]+$/")))) return true;
-        return false;
+    public static function isUri($value) {
+        return filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[A-Za-z0-9-\/_]+$/")));
     }
 
     /**
@@ -95,9 +89,8 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isBool($value){
-        if(is_bool(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE))) return true;
-        return false;
+    public static function isBool($value) {
+        return is_bool(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE));
     }
 
     /**
@@ -107,8 +100,11 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isEmail($value){
-        if(filter_var($value, FILTER_VALIDATE_EMAIL)) return true;
-        return false;
+    public static function isEmail($value) {
+        return filter_var($value, FILTER_VALIDATE_EMAIL);
+    }
+
+    public static function isPassword($password) {
+        return filter_var($password, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/"]]);
     }
 }

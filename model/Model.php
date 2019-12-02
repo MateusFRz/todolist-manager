@@ -133,15 +133,16 @@ class Model {
         if (empty($result))
             return null;
 
-        return new User($result['name'], $result['surname'], $result['email'], $result['password'], $result['id']);
+        return new User($result[0]['name'], $result[0]['surname'], $result[0]['email'], $result[0]['password'], $result[0]['id']);
+
     }
 
-    public static function insertUser(User $user) {
+    public static function insertUser(User $userObj) {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
 
-        $userGT->insertUser($user);
+        $userGT->insertUser($userObj);
     }
 
     public static function deleteUser($userID) {

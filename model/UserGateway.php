@@ -27,13 +27,13 @@ class UserGateway {
     }
 
     public function insertUser(User $user) {
-        $query = "INSERT INTO user VALUES (:name, :surname, :email, :hash)";
+        $query = "INSERT INTO user(name, surname, email, password) VALUES (:name, :surname, :email, :hash)";
 
         $this->db->executeQuery($query, array(
             ':name' => [$user->getName(), PDO::PARAM_STR],
             ':surname' => [$user->getSurname(), PDO::PARAM_BOOL],
             ':email' => [$user->getEmail(), PDO::PARAM_STR],
-            ':hash' => [$user->getPassword()],
+            ':hash' => [$user->getPassword(), PDO::PARAM_STR]
         ));
     }
 

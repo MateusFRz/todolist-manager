@@ -40,7 +40,7 @@ class TaskGateway {
     }
 
     public function insertTask(Task $task, $id_checklist) {
-        $query = 'INSERT INTO task VALUES(:name, :description, :done, :id_checklist);';
+        $query = 'INSERT INTO task(name, description, done, id_checklist) VALUES(:name, :description, :done, :id_checklist);';
 
         $this->db->executeQuery($query, array(
             ':name' => [$task->getName(), PDO::PARAM_STR],

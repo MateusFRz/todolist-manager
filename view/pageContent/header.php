@@ -17,4 +17,8 @@
 </head>
 
 
-<?php require_once "navbar.php"; ?>
+<?php
+if (!empty($errors) || !empty($successes))
+    require_once "alert.php";
+    require_once "navbar.php";
+?>

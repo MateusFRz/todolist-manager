@@ -6,13 +6,14 @@ class FrontController {
      * FrontController constructor.
      */
     public function __construct() {
-        global $rep,$errors;
+        global $rep,$errors, $successes;
         $action = NULL;
 
         session_start();
 
         if (isset($_REQUEST['action']))
             $action = $_REQUEST['action'];
+
 
         try {
             switch ($action) {
@@ -21,8 +22,6 @@ class FrontController {
                     new VisitorController();
                     break;
                 case "private" :
-                    new UserController();
-                    break;
                 case "logout":
                 case "login":
                 case "signup":
@@ -45,7 +44,9 @@ class FrontController {
         }
 
 
-
+        //TODO change this
+        if (isset($_SESSION['login']))
+            new VisitorController();
         if (!empty($errors))
             new VisitorController();
     }
