@@ -15,3 +15,6 @@
     <script async src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
 </head>
+
+
+<?php require_once "navbar.php"; ?>

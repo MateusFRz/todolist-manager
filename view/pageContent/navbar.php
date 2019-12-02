@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION['login'])):
+if (!isset($_SESSION['login']) || !$_SESSION['login']):
 ?>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Checklist website</a>
@@ -27,6 +27,11 @@ if (!isset($_SESSION['login'])):
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="?action=publicPage">Public</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="?action=logout">Disconnect</a>
             </li>
         </ul>
     </div>

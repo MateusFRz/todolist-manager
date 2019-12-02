@@ -3,7 +3,6 @@
 require_once "pageContent/header.php";
 ?>
 <body>
-    <?php require_once "pageContent/navbar.php"; ?>
     <div class="container">
         <form method="post">
             <div class="form-group">
@@ -24,6 +23,7 @@ require_once "pageContent/header.php";
                 <input type="password" class="form-control" id="password">
             </div>
             <button type="submit" class="btn btn-primary">Sign up</button>
+            <a href="?action=loginPage">Already have an account ?</a>
             <input type="hidden" name="action" value="signup">
         </form>
     </div>
