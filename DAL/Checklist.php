@@ -31,14 +31,6 @@ class Checklist {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
 
     /**
      * Return all tasks of the checklist

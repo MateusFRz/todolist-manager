@@ -15,15 +15,18 @@ class FrontController {
             $action = $_REQUEST['action'];
 
 
+
         try {
             switch ($action) {
                 case "publicPage":
                 case NULL:
                     new VisitorController();
                     break;
-                case "private" :
+                case "profile":
+                case "private":
                 case "logout":
                 case "login":
+                case "addChecklist":
                 case "signup":
                     new UserController($action);
                     break;
@@ -43,10 +46,6 @@ class FrontController {
             $errors['exception'] = $exception->getMessage();
         }
 
-
-        //TODO change this
-        if (isset($_SESSION['login']))
-            new VisitorController();
         if (!empty($errors))
             new VisitorController();
     }

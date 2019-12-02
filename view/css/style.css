@@ -1,7 +1,6 @@
 body {
     padding-top: 5rem;
 }
-.center-block {
-    padding: 3rem 1.5rem;
-    text-align: center;
+.strike {
+    text-decoration: line-through;
 }

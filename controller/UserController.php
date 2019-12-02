@@ -9,18 +9,30 @@ class UserController {
      * @param $action
      */
     public function __construct($action) {
-        global $errors, $successes;
+        global $errors;
 
-        if ($action == 'login') {
-            $this->login();
-        } elseif ($action == 'signup') {
-            $this->signup();
-        } elseif ($action == 'logout') {
-            $this->logout();
-        } elseif ($action == 'private') {
-            $this->privateChecklist();
-        } else {
-            $errors['user'] = 'You try to access forbidden page !';
+        switch ($action) {
+            case "login":
+                $this->login();
+                break;
+            case "signup":
+                $this->signup();
+                break;
+            case "logout":
+                $this->logout();
+                break;
+            case "private":
+                $this->privateChecklist();
+                break;
+            case "profile":
+                $this->profile();
+                break;
+            case "addChecklist":
+                $this->addChecklist();
+                break;
+            default:
+                $errors['user'] = 'You try to access forbidden page !';
+                return;
         }
     }
 
@@ -51,6 +63,8 @@ class UserController {
             $_SESSION['login'] = true;
             $_SESSION['user'] = $user;
             $successes['login'] = 'You have login with success';
+
+            require_once $rep."/view/profile.php";
         } else {
             $errors['missing'] = 'Password or email is missing !';
         }
@@ -89,9 +103,9 @@ class UserController {
 
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            Model::insertUser(new User($name, $surname, $email, $hash));
+            Model::insertUser(new User($name, $surname, $email, $hash, uniqid("", true)));
 
-            $successes['register'] = 'You have created an account with success';
+            $successes['register'] = 'You created an account with success';
         } else {
             $errors['missing'] = 'Something is missing in the form !';
         }
@@ -100,10 +114,66 @@ class UserController {
     }
 
     private function logout() {
+        global $rep;
 
+        session_destroy();
+        unset($_SESSION);
+
+        require_once $rep."/view/login.php";
     }
 
     private function privateChecklist() {
+        global $errors, $rep;
 
+        if (isset($_SESSION['login'])) {
+            $user = $_SESSION['user'];
+
+            $checklists = Model::findChecklistByUser($user->getID());
+            require_once $rep."view/vue.php";
+        } else {
+            $errors['denied'] = 'You need to be connect to access this page !';
+        }
+    }
+
+    private function profile() {
+        global $rep;
+
+        require_once $rep."/view/profile.php";
+    }
+
+    private function addChecklist() {
+        global $errors, $successes, $rep;
+
+        if (!isset($_REQUEST['name'])) {
+            $errors['checklistNameND'] = 'Checklist name not define';
+            return;
+        }
+
+        $tasks = [];
+
+        $public = true;
+        if (isset($_REQUEST['public'])) $public = false;
+        $name = Validation::purify($_REQUEST['name']);
+        $tasksNoParse = Validation::purify($_REQUEST['tasks']);
+        $tasksNoParse = rtrim($tasksNoParse, ';');
+
+        $tasksNoParse = explode(';', $tasksNoParse);
+        foreach ($tasksNoParse as $taskNP) {
+            $task = explode('§', $taskNP);
+
+            $tasks[] = new Task($task[0], $task[1], 0, uniqid("", true));
+
+            $task = [];
+        }
+
+        $userID = 0;
+        if (isset($_SESSION['login'])) $userID = $_SESSION['user']->getID();
+
+        Model::insertChecklist(new Checklist($name, $tasks, $public, uniqid("", true)), $userID);
+
+        $successes['checklistAdd'] = 'Checklist added success-fully !';
+
+        //TODO redirection to the good place !
+        require_once $rep."view/vue.php";
     }
 }

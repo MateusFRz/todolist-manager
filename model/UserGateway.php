@@ -27,11 +27,12 @@ class UserGateway {
     }
 
     public function insertUser(User $user) {
-        $query = "INSERT INTO user(name, surname, email, password) VALUES (:name, :surname, :email, :hash)";
+        $query = "INSERT INTO user(id, name, surname, email, password) VALUES (:id, :name, :surname, :email, :hash)";
 
         $this->db->executeQuery($query, array(
+            ':id' => [$user->getId(), PDO::PARAM_STR],
             ':name' => [$user->getName(), PDO::PARAM_STR],
-            ':surname' => [$user->getSurname(), PDO::PARAM_BOOL],
+            ':surname' => [$user->getSurname(), PDO::PARAM_STR],
             ':email' => [$user->getEmail(), PDO::PARAM_STR],
             ':hash' => [$user->getPassword(), PDO::PARAM_STR]
         ));
@@ -45,7 +46,7 @@ class UserGateway {
 
         $query = 'DELETE FROM user WHERE id = :id;';
         $this->db->executeQuery($query, array(
-            ':id' => [$userID, PDO::PARAM_INT]
+            ':id' => [$userID, PDO::PARAM_STR]
         ));
     }
 

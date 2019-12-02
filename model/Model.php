@@ -50,6 +50,9 @@ class Model {
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
         $checkGT->insertChecklist($checklist, $userID);
+
+        foreach ($checklist->getTasks() as $task)
+            Model::insertTask($task, $checklist->getId());
     }
 
     public static function deleteChecklist($checklistID) {
@@ -70,7 +73,7 @@ class Model {
         if (empty($result))
             return null;
 
-        return new Task($taskID, $result['name'], $result['description'], $result['done']);
+        return new Task($result['name'], $result['description'], $result['done'], $taskID);
     }
 
     public static function findTaskByChecklistID($checklistID) {
@@ -84,7 +87,7 @@ class Model {
             return null;
 
         foreach ($result as $task)
-            $tasks[] = new Task($task['id'], $task['name'], $task['description'], $task['done']);
+            $tasks[] = new Task($task['name'], $task['description'], $task['done'], $task['id']);
 
         return $tasks;
     }

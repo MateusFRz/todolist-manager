@@ -13,7 +13,7 @@ class TaskGateway {
         $query = 'SELECT name, description, done FROM `task` WHERE id  = :id;';
 
         $this->db->executeQuery($query, array(
-            ':id' => [$taskID, PDO::PARAM_INT]
+            ':id' => [$taskID, PDO::PARAM_STR]
         ));
         
         return $this->db->getResults()[0];
@@ -23,7 +23,7 @@ class TaskGateway {
         $query =  'SELECT id, name, description, done FROM task WHERE id_checklist=:id_checklist;';
 
         $this->db->executeQuery($query, array(
-            ':id_checklist' => [$checklistID, PDO::PARAM_INT]
+            ':id_checklist' => [$checklistID, PDO::PARAM_STR]
         ));
 
         return $this->db->getResults();
@@ -40,13 +40,14 @@ class TaskGateway {
     }
 
     public function insertTask(Task $task, $id_checklist) {
-        $query = 'INSERT INTO task(name, description, done, id_checklist) VALUES(:name, :description, :done, :id_checklist);';
+        $query = 'INSERT INTO task(id, name, description, done, id_checklist) VALUES(:id, :name, :description, :done, :id_checklist);';
 
         $this->db->executeQuery($query, array(
+            ':id' => [$task->getID(), PDO::PARAM_STR],
             ':name' => [$task->getName(), PDO::PARAM_STR],
             ':description' => [$task->getDescription(), PDO::PARAM_STR],
             ':done' => [$task->isDone(), PDO::PARAM_BOOL],
-            ':id_checklist' => [$id_checklist, PDO::PARAM_INT]
+            ':id_checklist' => [$id_checklist, PDO::PARAM_STR]
         ));
     }
 
@@ -54,7 +55,7 @@ class TaskGateway {
         $query = 'DELETE FROM `task` WHERE id = :id;';
 
         $this->db->executeQuery($query, array(
-            ':id' => [$taskID, PDO::PARAM_INT]
+            ':id' => [$taskID, PDO::PARAM_STR]
         ));
     }
 }

@@ -33,17 +33,18 @@ class ChecklistGateway {
         $this->db->executeQuery($query, array(
             ':name' => [$newChecklist->getName(), PDO::PARAM_STR],
             ':visible' => [$newChecklist->isPublic(), PDO::PARAM_BOOL],
-            ':id' => [$checklistID, PDO::PARAM_INT]
+            ':id' => [$checklistID, PDO::PARAM_STR]
         ));
     }
 
     public function insertChecklist(Checklist $checklist, $userID) {
-        $query = "INSERT INTO checklist(name, visible, id_user) VALUES (:name, :visible, :userID)";
+        $query = "INSERT INTO checklist(id, name, visible, id_user) VALUES (:id, :name, :visible, :userID)";
 
         $this->db->executeQuery($query, array(
+           ':id' => [$checklist->getId(), PDO::PARAM_STR],
            ':name' => [$checklist->getName(), PDO::PARAM_STR],
            ':visible' => [$checklist->isPublic(), PDO::PARAM_BOOL],
-           ':userID' => [$userID, PDO::PARAM_INT]
+           ':userID' => [$userID, PDO::PARAM_STR]
         ));
     }
 
@@ -55,7 +56,7 @@ class ChecklistGateway {
 
         $query = 'DELETE FROM checklist WHERE id = :id;';
         $this->db->executeQuery($query, array(
-            ':id' => [$checklistID, PDO::PARAM_INT]
+            ':id' => [$checklistID, PDO::PARAM_STR]
         ));
     }
 }

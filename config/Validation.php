@@ -46,7 +46,7 @@ class Validation {
      * @return boolean
      */
     public static function isAlpha($value) {
-        return preg_match("/^[a-zA-Z ]+$/", $value);
+        return preg_match("/^[a-zA-Z \-]+$/", $value);
     }
 
     /**
@@ -57,7 +57,7 @@ class Validation {
      * @return boolean
      */
     public static function isAlphaNum($value) {
-        return preg_match("/^[a-zA-Z0-9]+$/", $value);
+        return preg_match("/^[a-zA-Z0-9 \-]+$/", $value);
     }
 
     /**
