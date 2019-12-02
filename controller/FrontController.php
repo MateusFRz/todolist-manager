@@ -6,26 +6,48 @@ class FrontController {
      * FrontController constructor.
      */
     public function __construct() {
-        global $rep,$vues;
+        global $rep,$errors;
         $action = NULL;
+
+        session_start();
 
         if (isset($_REQUEST['action']))
             $action = $_REQUEST['action'];
 
         try {
-
             switch ($action) {
+                case "publicPage":
                 case NULL:
                     new VisitorController();
                     break;
+                case "private" :
+                    new UserController();
+                    break;
+                case "login":
+                    //log the user
+                    break;
+                case "signup":
+                    //register user
+                    break;
+                case "signupPage" :
+                    require_once $rep."/view/signup.php";
+                    break;
+                case "loginPage":
+                    require_once $rep."/view/login.php";
+                    break;
                 default:
-                    //error action non reconnue
+                    $errors['action'] = "Action no found !";
                     break;
             }
         } catch (PDOException $PDOException) {
-            //vue erreur
+            $errors['pdo'] = $PDOException->getMessage();
         } catch (Exception $exception) {
-            //vue erreur
+            $errors['exception'] = $exception->getMessage();
         }
+
+
+
+        if (!empty($errors))
+            new VisitorController();
     }
 }

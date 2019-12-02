@@ -3,7 +3,7 @@
 $rowCount = 0;
 $numCols = 3;
 foreach ($checkLists as $checklist): ?>
-    <div class="col">
+    <div class="col-4">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"><?= $checklist->getName() ?></h5>

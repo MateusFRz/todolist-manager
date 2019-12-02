@@ -10,4 +10,4 @@ Autoload::charger();
 
 $con = new FrontController();
 
-//require_once "view/vue.php";
+//require_once "view/signup.php";

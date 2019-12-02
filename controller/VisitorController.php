@@ -7,7 +7,7 @@ class VisitorController {
      * VisitorController constructor.
      */
     public function __construct(){
-        global $rep;
+        global $rep, $errors;
 
         $model = new Model();
 
