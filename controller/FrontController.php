@@ -23,11 +23,10 @@ class FrontController {
                 case "private" :
                     new UserController();
                     break;
+                case "logout":
                 case "login":
-                    //log the user
-                    break;
                 case "signup":
-                    //register user
+                    new UserController($action);
                     break;
                 case "signupPage" :
                     require_once $rep."/view/signup.php";

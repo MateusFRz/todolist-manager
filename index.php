@@ -10,4 +10,5 @@ Autoload::charger();
 
 $con = new FrontController();
 
+
 //require_once "view/signup.php";
