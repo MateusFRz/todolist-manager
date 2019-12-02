@@ -29,6 +29,7 @@ class ChecklistGateway {
 
     public function updateChecklist($checklistID, Checklist $newChecklist) {
         $query = 'UPDATE checklist SET name=:name, visible=:visible WHERE id=:id;';
+
         $this->db->executeQuery($query, array(
             ':name' => [$newChecklist->getName(), PDO::PARAM_STR],
             ':visible' => [$newChecklist->isPublic(), PDO::PARAM_BOOL],
@@ -46,10 +47,11 @@ class ChecklistGateway {
         ));
     }
 
-    public function deleteChecklist($checklistID, TaskGateway $taskGT) {
-        $tasks = $this->taskGT->findTaskByChecklistID($checklistID);
+    public function deleteChecklist($checklistID) {
+        $tasks = Model::findTaskByChecklistID($checklistID);
+
         foreach ($tasks as $task)
-            $this->taskGT->deleteTask($task->getID());
+            Model::deleteTask($task->getID());
 
         $query = 'DELETE FROM checklist WHERE id = :id;';
         $this->db->executeQuery($query, array(

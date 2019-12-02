@@ -9,9 +9,7 @@ class VisitorController {
     public function __construct(){
         global $rep, $errors;
 
-        $model = new Model();
-
-        $checkLists = $model->findChecklistByPublic(true);
+        $checkLists = Model::findChecklistByPublic(true);
         require_once $rep."/view/vue.php";
     }
 }

@@ -17,8 +17,7 @@ class User {
      * @param $email
      * @param $password
      */
-    public function __construct($id, $name, $surname, $email, $password)
-    {
+    public function __construct($name, $surname, $email, $password, $id = NULL) {
         $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
@@ -29,79 +28,70 @@ class User {
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return mixed
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
     /**
      * @param mixed $name
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
     }
 
     /**
      * @return mixed
      */
-    public function getSurname()
-    {
+    public function getSurname() {
         return $this->surname;
     }
 
     /**
      * @param mixed $surname
      */
-    public function setSurname($surname)
-    {
+    public function setSurname($surname) {
         $this->surname = $surname;
     }
 
     /**
      * @return mixed
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
     }
+
     /**
      * @return mixed
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
     /**
      * @param mixed $password
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
