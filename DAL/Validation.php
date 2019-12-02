@@ -11,7 +11,9 @@ class Validation {
      * @return string
      */
     public static function purify($string){
-        return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+        $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+        $string = filter_var($string, FILTER_SANITIZE_STRING);
+        return $string;
     }
 
     /**
