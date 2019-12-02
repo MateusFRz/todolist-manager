@@ -18,7 +18,7 @@ class Checklist {
     public function __construct($name, $tasks, $public, $id)
     {
         $this->name = $name;
-        $this->tasks = $tasks;
+        $this->tasks = ($tasks == null ? [] : $tasks);
         $this->public = ($public == 0 ? false : true);
         $this->id = $id;
     }

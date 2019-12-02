@@ -9,7 +9,7 @@ class UserGateway {
     }
 
     public function findUserByID($userID) {
-        $query = 'SELECT id,name,surname,email FROM user where id=:id;';
+        $query = 'SELECT id,name,surname,email,password FROM user where id=:id;';
 
         $this->db->executeQuery($query, array(
             ':id' => [$userID, PDO::PARAM_STR]
@@ -18,7 +18,7 @@ class UserGateway {
     }
 
     public function findUserByEmail($email) {
-        $query = 'SELECT id,name,surname,email FROM user where email=:email;';
+        $query = 'SELECT id,name,surname,email,password FROM user where email=:email;';
 
         $this->db->executeQuery($query, array(
             ':email' => [$email, PDO::PARAM_STR]

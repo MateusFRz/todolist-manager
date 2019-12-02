@@ -7,8 +7,10 @@ class Model {
         $checklists = [];
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
-
         $results= $checkGT->findChecklistByUser($userID);
+
+        if (empty($result))
+            return null;
 
         foreach ($results as $checklist) {
             $tasks = Model::findTaskByChecklistID($checklist['id']);
@@ -23,8 +25,10 @@ class Model {
         $checklists = [];
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
-
         $result = $checkGT->findChecklistByPublic($public);
+
+        if (empty($result))
+            return null;
 
         foreach ($result as $checklist) {
             $tasks = Model::findTaskByChecklistID($checklist['id']);
@@ -63,6 +67,9 @@ class Model {
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
         $result = $taskGT->findTaskByID($taskID);
 
+        if (empty($result))
+            return null;
+
         return new Task($taskID, $result['name'], $result['description'], $result['done']);
     }
 
@@ -72,6 +79,9 @@ class Model {
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
         $result = $taskGT->findTaskByChecklistID($checklistID);
+
+        if (empty($result))
+            return null;
 
         foreach ($result as $task)
             $tasks[] = new Task($task['id'], $task['name'], $task['description'], $task['done']);
@@ -102,25 +112,31 @@ class Model {
         $taskGT->deleteTask($taskID);
     }
 
-    public function findUserByID($userID) {
+    public static function findUserByID($userID) {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
-        $result = $userGT->findUserByEmail($userID);
+        $result = $userGT->findUserByID($userID);
+
+        if (empty($result))
+            return null;
 
         return new User($result['name'], $result['surname'], $result['email'], $result['password'], $result['id']);
     }
 
-    public function findUserByEmail($email) {
+    public static function findUserByEmail($email) {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
         $result = $userGT->findUserByEmail($email);
 
+        if (empty($result))
+            return null;
+
         return new User($result['name'], $result['surname'], $result['email'], $result['password'], $result['id']);
     }
 
-    public function insertUser(User $user) {
+    public static function insertUser(User $user) {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
@@ -128,7 +144,7 @@ class Model {
         $userGT->insertUser($user);
     }
 
-    public function deleteUser($userID) {
+    public static function deleteUser($userID) {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
