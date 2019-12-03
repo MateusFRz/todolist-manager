@@ -2,6 +2,8 @@
 
 class Model {
 
+
+
     public static function findChecklistByUser($userID) {
         global $dsn, $user, $password;
         $checklists = [];

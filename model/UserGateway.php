@@ -14,6 +14,7 @@ class UserGateway {
         $this->db->executeQuery($query, array(
             ':id' => [$userID, PDO::PARAM_STR]
         ));
+
         return $this->db->getResults();
     }
 
@@ -23,6 +24,7 @@ class UserGateway {
         $this->db->executeQuery($query, array(
             ':email' => [$email, PDO::PARAM_STR]
         ));
+
         return $this->db->getResults();
     }
 

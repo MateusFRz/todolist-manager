@@ -26,13 +26,13 @@
                 <div class="card-body">
                     <ul class="list-unstyled">
                         <?php foreach ($checklist->getTasks() as $task): ?>
-                            <li><?php echo ($task->isDone() ? "<i class=\"fas fa-check-circle\"></i><strike>" : "<i class=\"fas fa-times-circle\"></i>")
+                            <li><?= ($task->isDone() ? "<i class=\"fas fa-check-circle\"></i><strike>" : "<i class=\"fas fa-times-circle\"></i>")
                                     . " " . $task->getName() . " - " . $task->getDescription(); ?></strike>
                                 <form method="post" class="text-right">
                                     <button class="btn text-danger btn-sm" type="submit" name="action"
                                             value="removeTask"><i class="fas fa-trash-alt"></i></button>
                                     <button class="btn text-primary btn-lg" type="submit" name="action"
-                                            value="changeTaskState"><i class="fas fa-check-square"></i></button>
+                                            value="changeTaskState"><i class="<?= $task->isDone() ? "fas fa-check-square" : "far fa-square" ?>"></i></button>
                                     <input type="hidden" name="taskID" value="<?= $task->getID(); ?>">
                                 </form>
                             </li>

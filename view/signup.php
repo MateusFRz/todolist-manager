@@ -15,7 +15,7 @@ require_once "pageContent/header.php";
             </div>
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control" name="email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">

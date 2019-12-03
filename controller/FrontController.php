@@ -14,8 +14,6 @@ class FrontController {
         if (isset($_REQUEST['action']))
             $action = $_REQUEST['action'];
 
-
-
         try {
             switch ($action) {
                 case "publicPage":

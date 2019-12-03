@@ -40,7 +40,7 @@ class ChecklistGateway {
 
     public function insertChecklist(Checklist $checklist, $userID) {
         $query = 'INSERT INTO checklist(id, name, visible, id_user) VALUES (:id, :name, :visible, :userID)';
-        echo "2 - ".$userID;
+        
         $this->db->executeQuery($query, array(
            ':id' => [$checklist->getId(), PDO::PARAM_STR],
            ':name' => [$checklist->getName(), PDO::PARAM_STR],

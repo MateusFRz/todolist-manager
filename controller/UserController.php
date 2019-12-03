@@ -2,7 +2,15 @@
 
 
 class UserController {
-
+/*
+ *
+1§Lorsqu’on arrive sur l’application, aucun utilisateur n’est connecté, les listes des tâches publiques sont listées.;
+2§Le visiteur peut ajouter/supprimer des listes et les tâches publiques sans se connecter.;
+3§Il faut créer un espace pour se connecter à l’application (si vous avez du temps, faire une partie inscription également).;
+4§Une fois l’utilisateur connecté, il a accès aux listes publiques (comme le visiteur), mais également à ses listes privées.;
+5§Toutes les listes de tâches ajoutées par un utilisateur sont privées par défaut afin de simplifier l’application. Il peut bien entendu supprimer ses listes également. Il faut penser à la relation entre les listes de tâches et l’utilisateur en base de données.;
+6§Chaque tâche pourra être complétée via une case à cocher, ajoutez un bouton pour valider en dessous de la liste des tâches. Pour les plus téméraires, essayez de compléter/dé-compléter des tâches via des requêtes AJAX à la place du bouton valider (optionnel).;
+ * */
 
     /**
      * UserController constructor.
@@ -192,13 +200,12 @@ class UserController {
         $userID = 0;
         if (isset($_SESSION['login'])) $userID = $_SESSION['user']->getID();
 
-        echo "1 - ".$userID . "</br>";
-
         Model::insertChecklist(new Checklist($name, $tasks, $public, uniqid("", true)), $userID);
 
         $successes['checklistAdd'] = 'Checklist added success-fully !';
 
         //TODO redirection to the good place !
+        $errors['TODO'] = 'this feature is not finished';
         new VisitorController();
     }
 
@@ -213,6 +220,7 @@ class UserController {
         Model::deleteChecklist($_REQUEST['checklistID']);
 
         //TODO change this
+        $errors['TODO'] = 'this feature is not finished';
         new VisitorController();
     }
 
@@ -227,6 +235,7 @@ class UserController {
         Model::deleteTask($_REQUEST['taskID']);
 
         //TODO change this
+        $errors['TODO'] = 'this feature is not finished';
         new VisitorController();
     }
 
@@ -241,11 +250,18 @@ class UserController {
         Model::changeTaskState($_REQUEST['taskID']);
 
         //TODO change this
+        $errors['TODO'] = 'this feature is not finished';
         new VisitorController();
 
     }
 
     private function modifyChecklist() {
-        echo "ne fait rien pour le moment !";
+        global $errors;
+
+        //TODO à faire
+        $errors['TODO'] = 'this feature is not finished';
+        new VisitorController();
     }
+
+
 }
