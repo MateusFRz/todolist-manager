@@ -30,6 +30,18 @@ class UserController {
             case "addChecklist":
                 $this->addChecklist();
                 break;
+            case "removeTask":
+                $this->removeTask();
+                break;
+            case "changeTaskState":
+               $this->changeTaskState();
+               break;
+            case "removeChecklist":
+               $this->removeChecklist();
+               break;
+            case "modifyChecklist":
+                $this->modifyChecklist();
+                break;
             default:
                 $errors['user'] = 'You try to access forbidden page !';
                 return;
@@ -149,10 +161,21 @@ class UserController {
             return;
         }
 
+        if (!isset($_REQUEST['tasks'])) {
+            $errors['checklistNameND'] = "Task are not define";
+            return;
+        }
+
+        if (strpos($_REQUEST['tasks'], ';') === false || strpos($_REQUEST['tasks'], '§') === false) {
+            $errors['taskError'] = 'Task not correctly define !';
+            return;
+        }
+
         $tasks = [];
 
-        $public = true;
-        if (isset($_REQUEST['public'])) $public = false;
+        $public = 1;
+        if (isset($_REQUEST['public'])) $public = 0;
+
         $name = Validation::purify($_REQUEST['name']);
         $tasksNoParse = Validation::purify($_REQUEST['tasks']);
         $tasksNoParse = rtrim($tasksNoParse, ';');
@@ -169,11 +192,60 @@ class UserController {
         $userID = 0;
         if (isset($_SESSION['login'])) $userID = $_SESSION['user']->getID();
 
+        echo "1 - ".$userID . "</br>";
+
         Model::insertChecklist(new Checklist($name, $tasks, $public, uniqid("", true)), $userID);
 
         $successes['checklistAdd'] = 'Checklist added success-fully !';
 
         //TODO redirection to the good place !
-        require_once $rep."view/vue.php";
+        new VisitorController();
+    }
+
+    private function removeChecklist() {
+        global $errors;
+
+        if(!isset($_REQUEST['checklistID']) || !Validation::isAlphaNum($_REQUEST['checklistID'])) {
+            $errors['checklistIDNV'] = 'Checklist ID is not valid';
+            return;
+        }
+
+        Model::deleteChecklist($_REQUEST['checklistID']);
+
+        //TODO change this
+        new VisitorController();
+    }
+
+    private function removeTask() {
+        global $errors;
+
+        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
+            $errors['taskIDNV'] = 'Task ID is not valid';
+            return;
+        }
+
+        Model::deleteTask($_REQUEST['taskID']);
+
+        //TODO change this
+        new VisitorController();
+    }
+
+    private function changeTaskState() {
+        global $errors;
+
+        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
+            $errors['taskIDNV'] = 'Task ID is not valid';
+            return;
+        }
+
+        Model::changeTaskState($_REQUEST['taskID']);
+
+        //TODO change this
+        new VisitorController();
+
+    }
+
+    private function modifyChecklist() {
+        echo "ne fait rien pour le moment !";
     }
 }

@@ -26,7 +26,11 @@ class FrontController {
                 case "private":
                 case "logout":
                 case "login":
+                case "removeTask":
                 case "addChecklist":
+                case "changeTaskState":
+                case "removeChecklist":
+                case "modifyChecklist":
                 case "signup":
                     new UserController($action);
                     break;

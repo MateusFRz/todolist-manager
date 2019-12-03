@@ -51,6 +51,14 @@ class TaskGateway {
         ));
     }
 
+    public function changeTaskState($taskID) {
+        $query = 'UPDATE task SET done=(NOT done) WHERE id=:id';
+
+        $this->db->executeQuery($query, array(
+           ':id' => [$taskID, PDO::PARAM_STR]
+        ));
+    }
+
     public function deleteTask($taskID) {
         $query = 'DELETE FROM `task` WHERE id = :id;';
 

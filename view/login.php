@@ -1,7 +1,7 @@
 <?php
-
-require_once "pageContent/header.php";
+    require_once "pageContent/header.php";
 ?>
+
 <body>
     <div class="container">
         <form method="post">
@@ -19,5 +19,6 @@ require_once "pageContent/header.php";
         </form>
     </div>
 </body>
+
 <?php
-require_once "pageContent/footer.php";
+    require_once "pageContent/footer.php";

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Site de gestions de tâches</title>
+    <title>Check this for you</title>
 
     <link rel="stylesheet" href="view/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="view/css/bootstrap-grid.min.css"/>
@@ -18,7 +18,8 @@
 
 
 <?php
+require_once "navbar.php";
+
 if (!empty($errors) || !empty($successes))
     require_once "alert.php";
-    require_once "navbar.php";
 ?>

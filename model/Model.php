@@ -7,10 +7,11 @@ class Model {
         $checklists = [];
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
-        $results= $checkGT->findChecklistByUser($userID);
+        $results = $checkGT->findChecklistByUser($userID);
 
-        if (empty($result))
+        if (empty($results))
             return null;
+
 
         foreach ($results as $checklist) {
             $tasks = Model::findTaskByChecklistID($checklist['id']);
@@ -113,6 +114,13 @@ class Model {
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
         $taskGT->deleteTask($taskID);
+    }
+
+    public static function changeTaskState($taskID) {
+        global $dsn, $user, $password;
+
+        $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
+        $taskGT->changeTaskState($taskID);
     }
 
     public static function findUserByID($userID) {

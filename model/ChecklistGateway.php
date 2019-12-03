@@ -9,16 +9,17 @@ class ChecklistGateway {
     }
 
     public function findChecklistByUser($userID) {
-        $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user;';
+        $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user';
 
         $this->db->executeQuery($query, array(
                             ':id_user' => [$userID, PDO::PARAM_STR]
         ));
+
         return $this->db->getResults();
     }
 
     public function findChecklistByPublic($public) {
-        $query = 'SELECT id,name,visible FROM checklist where visible=:visible;';
+        $query = 'SELECT id,name,visible FROM checklist where visible=:visible';
 
         $this->db->executeQuery($query, array(
             ':visible' => [$public, PDO::PARAM_BOOL]
@@ -28,7 +29,7 @@ class ChecklistGateway {
     }
 
     public function updateChecklist($checklistID, Checklist $newChecklist) {
-        $query = 'UPDATE checklist SET name=:name, visible=:visible WHERE id=:id;';
+        $query = 'UPDATE checklist SET name=:name, visible=:visible WHERE id=:id';
 
         $this->db->executeQuery($query, array(
             ':name' => [$newChecklist->getName(), PDO::PARAM_STR],
@@ -38,8 +39,8 @@ class ChecklistGateway {
     }
 
     public function insertChecklist(Checklist $checklist, $userID) {
-        $query = "INSERT INTO checklist(id, name, visible, id_user) VALUES (:id, :name, :visible, :userID)";
-
+        $query = 'INSERT INTO checklist(id, name, visible, id_user) VALUES (:id, :name, :visible, :userID)';
+        echo "2 - ".$userID;
         $this->db->executeQuery($query, array(
            ':id' => [$checklist->getId(), PDO::PARAM_STR],
            ':name' => [$checklist->getName(), PDO::PARAM_STR],
@@ -51,10 +52,11 @@ class ChecklistGateway {
     public function deleteChecklist($checklistID) {
         $tasks = Model::findTaskByChecklistID($checklistID);
 
-        foreach ($tasks as $task)
-            Model::deleteTask($task->getID());
+        if(!empty($tasks))
+            foreach ($tasks as $task)
+                Model::deleteTask($task->getID());
 
-        $query = 'DELETE FROM checklist WHERE id = :id;';
+        $query = 'DELETE FROM checklist WHERE id = :id';
         $this->db->executeQuery($query, array(
             ':id' => [$checklistID, PDO::PARAM_STR]
         ));
