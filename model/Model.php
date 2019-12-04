@@ -40,6 +40,12 @@ class Model {
 
         return $checklists;
     }
+    public static function updateChecklistByName($checklistID, $checklistName) {
+        global $dsn, $user, $password;
+
+        $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
+        $checkGT->updateChecklistByName($checklistID, $checklistName);
+    }
 
     public static function updateChecklist($checklistID, Checklist $newChecklist) {
         global $dsn, $user, $password;

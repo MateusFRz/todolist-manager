@@ -28,6 +28,15 @@ class ChecklistGateway {
         return $this->db->getResults();
     }
 
+    public function updateChecklistByName($checklistID, $checklistName) {
+        $query = 'UPDATE checklist SET name=:name WHERE id=:id';
+
+        $this->db->executeQuery($query, array(
+            ':name' => [$checklistName, PDO::PARAM_STR],
+            ':id' => [$checklistID, PDO::PARAM_STR]
+        ))
+    }
+
     public function updateChecklist($checklistID, Checklist $newChecklist) {
         $query = 'UPDATE checklist SET name=:name, visible=:visible WHERE id=:id';
 

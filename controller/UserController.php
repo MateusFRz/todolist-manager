@@ -260,8 +260,17 @@ class UserController {
     private function modifyChecklist() {
         global $errors;
 
-        //TODO à faire
-        $errors['TODO'] = 'this feature is not finished';
+        if((!isset($_REQUEST['name'])) || !Validation::isAlpha($_REQUEST['name'])){
+            $errors['taskError']='Task Name is not valid';
+        }
+
+        if((!isset($_REQUEST['checklistID'])) || !Validation::isAlphaNum($_REQUEST['checklistID'])){
+            $errors['checkError']='Checklist ID is not valid';
+        }
+
+        Model::updateChecklistByName($_REQUEST['checklistID'], $_REQUEST['name']);
+
+        //TODO à faire la vue
         new VisitorController();
     }
 
