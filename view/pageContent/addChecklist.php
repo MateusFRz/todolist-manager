@@ -1,5 +1,4 @@
-<div class="col-4">
-    <div class="card" style="width: 20rem;">
+    <div class="card p-0" style="width: 20rem;">
         <div class="card-header">
             <h5 class="card-title">Add checklist</h5>
         </div>
@@ -27,4 +26,3 @@
             </form>
         </div>
     </div>
-</div>

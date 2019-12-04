@@ -53,6 +53,12 @@ class UserController {
             case "addTask":
                 $this->addTask();
                 break;
+            case "signupPage":
+                $this->signupPage();
+                break;
+            case "loginPage":
+                $this->loginPage();
+                break;
             default:
                 $errors['user'] = 'You try to access forbidden page !';
                 return;
@@ -178,6 +184,14 @@ class UserController {
             return;
         }
 
+        $name = Validation::purify($_REQUEST['name']);
+        $tasksNoParse = Validation::purify($_REQUEST['tasks']);
+
+        if ($tasksNoParse != $_REQUEST['tasks']) {
+            $errors['taskXSSError'] = 'Task not correctly define !';
+            return;
+        }
+
         if (strpos($_REQUEST['tasks'], ';') === false || strpos($_REQUEST['tasks'], '§') === false) {
             $errors['taskError'] = 'Task not correctly define !';
             return;
@@ -188,11 +202,9 @@ class UserController {
         $public = 1;
         if (isset($_REQUEST['public'])) $public = 0;
 
-        $name = Validation::purify($_REQUEST['name']);
-        $tasksNoParse = Validation::purify($_REQUEST['tasks']);
         $tasksNoParse = rtrim($tasksNoParse, ';');
-
         $tasksNoParse = explode(';', $tasksNoParse);
+
         foreach ($tasksNoParse as $taskNP) {
             $task = explode('§', $taskNP);
 
@@ -208,7 +220,9 @@ class UserController {
 
         $successes['checklistAdd'] = 'Checklist added success-fully !';
 
-        $this->privateChecklist();
+        if (isset($_SESSION['login'])) $this->privateChecklist();
+
+        new VisitorController();
     }
 
     private function removeChecklist() {
@@ -277,21 +291,40 @@ class UserController {
     private function addTask() {
         global $errors;
 
-        if((!isset($_REQUEST['name'])) || !Validation::isAlpha($_REQUEST['name'])){
-            $errors['taskError']='Task Name is not valid';
+        $name = Validation::purify($_REQUEST['name']);
+        $description = Validation::purify($_REQUEST['description']);
+        $checklistID = Validation::purify($_REQUEST['checklistID']);
+
+        if (empty($name)) {
+            $errors['taskNameError'] = 'Invalid name !';
+            return;
         }
-        if((!isset($_REQUEST['description'])) || !Validation::isAlpha($_REQUEST['description'])){
-            $errors['taskError']='Task Description is not valid';
+        if (empty($_REQUEST['description'])) {
+            $errors['taskDescriptionError'] = 'Invalid description !';
+            return;
         }
-        if((!isset($_REQUEST['checklistID'])) || !Validation::isAlphaNum($_REQUEST['checklistID'])){
-            $errors['checkError']='Checklist ID is not valid';
+        if (empty($_REQUEST['checklistID'])) {
+            $errors['checklistIDError'] = 'Invalid checklist !';
+            return;
         }
 
-        $task = new Task($_REQUEST['name'], $_REQUEST['description'], false, uniqid("", true));
-        Model::insertTask($task, $_REQUEST['checklistID']);
+        $task = new Task($name, $description, false, uniqid("", true));
+        Model::insertTask($task, $checklistID);
 
         //TODO faire la vue
         new VisitorController();
+    }
+
+    private function signupPage() {
+        global $rep;
+
+        require_once $rep."/view/signup.php";
+    }
+
+    private function loginPage() {
+        global $rep;
+
+        require_once $rep."/view/login.php";
     }
 
 }

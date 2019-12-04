@@ -31,13 +31,9 @@ class FrontController {
                 case "modifyChecklist":
                 case "addTask":
                 case "signup":
-                    new UserController($action);
-                    break;
                 case "signupPage" :
-                    require_once $rep."/view/signup.php";
-                    break;
                 case "loginPage":
-                    require_once $rep."/view/login.php";
+                    new UserController($action);
                     break;
                 default:
                     $errors['action'] = "Action no found !";

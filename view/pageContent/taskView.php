@@ -1,14 +1,13 @@
-<div class="row">
+<div class="card-columns">
     <?php
-    $rowCount = 1;
-    $numCols = 3;
+   /* $rowCount = 1;
+    $numCols = 3;*/
 
     require_once "addChecklist.php";
     if (!empty($checklists)):
         ?>
 
         <?php foreach ($checklists as $checklist): ?>
-        <div class="col-4">
             <div class="card" style="width: 20rem;">
                 <div class="card-header">
                     <form method="post">
@@ -25,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        <?php foreach ($checklist->getTasks() as $task): ?>
+                        <?php $tasks = $checklist->getTasks(); foreach ($tasks as $task): ?>
                             <li><?= ($task->isDone() ? "<i class=\"fas fa-check-circle\"></i><strike>" : "<i class=\"fas fa-times-circle\"></i>")
                                     . " " . $task->getName() . " - " . $task->getDescription(); ?></strike>
                                 <form method="post" class="text-right">
@@ -36,29 +35,48 @@
                                     <input type="hidden" name="taskID" value="<?= $task->getID(); ?>">
                                 </form>
                             </li>
-                            <div class="dropdown-divider"></div>
+                            <?= array_search($task, $tasks) == array_key_last($tasks) ? "" : "<div class=\"dropdown-divider\"></div>" ?>
                         <?php endforeach; ?>
                     </ul>
-
                 </div>
                 <div class="card-footer">
-                    <form>
+                    <form class="small text-right">
                         <div class="form-group">
                             <input type="text" id="name" class="form-control" placeholder="Task name" name="name">
                         </div>
                         <div class="form-group">
-                            <input type="text" id="description" class="form-control" placeholder="Description" name="description">
+                            <textarea rows="3" type="text" id="description" class="form-control" placeholder="Description" name="description"></textarea>
                         </div>
-                        <button class="btn" type="submit">Validation</button>
+                        <button class="btn btn-success btn-sm" type="submit">Add</button>
                         <input type="hidden" name="action" value="addTask">
                         <input type="hidden"name="checklistID" value="<?= $checklist->getID(); ?>">
                     </form>
                 </div>
             </div>
-        </div>
         <?php
-        $rowCount++;
-        if ($rowCount % $numCols == 0) echo "</div></br><div class=\"row\">";
+        /*$rowCount++;
+        if ($rowCount % $numCols == 0) echo "</div></br><div class=\"row\">";*/
     endforeach;
     endif; ?>
 </div>
+<nav aria-label="Page navigation example">
+    <div class="text-center">NOT WORKING</div>
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">5</a></li>
+        <li class="page-item"><a class="page-link" href="#">...</a></li>
+        <li class="page-item"><a class="page-link" href="#">11</a></li>
+        <li class="page-item"><a class="page-link" href="#">12</a></li>
+        <li class="page-item"><a class="page-link" href="#">13</a></li>
+        <li class="page-item"><a class="page-link" href="#">14</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
