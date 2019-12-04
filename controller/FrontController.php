@@ -29,6 +29,7 @@ class FrontController {
                 case "changeTaskState":
                 case "removeChecklist":
                 case "modifyChecklist":
+                case "addTask":
                 case "signup":
                     new UserController($action);
                     break;

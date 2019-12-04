@@ -41,6 +41,19 @@
                     </ul>
 
                 </div>
+                <div class="card-footer">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" id="name" class="form-control" placeholder="Task name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="description" class="form-control" placeholder="Description" name="description">
+                        </div>
+                        <button class="btn" type="submit">Validation</button>
+                        <input type="hidden" name="action" value="addTask">
+                        <input type="hidden"name="checklistID" value="<?= $checklist->getID(); ?>">
+                    </form>
+                </div>
             </div>
         </div>
         <?php

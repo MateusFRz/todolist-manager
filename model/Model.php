@@ -58,6 +58,7 @@ class Model {
             Model::insertTask($task, $checklist->getId());
     }
 
+
     public static function deleteChecklist($checklistID) {
         global $dsn, $user, $password;
 

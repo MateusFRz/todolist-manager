@@ -50,6 +50,9 @@ class UserController {
             case "modifyChecklist":
                 $this->modifyChecklist();
                 break;
+            case "addTask":
+                $this->addTask();
+                break;
             default:
                 $errors['user'] = 'You try to access forbidden page !';
                 return;
@@ -93,6 +96,7 @@ class UserController {
 
     private function signup() {
         global $errors, $successes,$rep;
+
 
         if (isset($_REQUEST['email']) && isset($_REQUEST['password'])
             && isset($_REQUEST['name']) && isset($_REQUEST['surname'])) {
@@ -204,9 +208,7 @@ class UserController {
 
         $successes['checklistAdd'] = 'Checklist added success-fully !';
 
-        //TODO redirection to the good place !
-        $errors['TODO'] = 'this feature is not finished';
-        new VisitorController();
+        $this->privateChecklist();
     }
 
     private function removeChecklist() {
@@ -263,5 +265,24 @@ class UserController {
         new VisitorController();
     }
 
+    private function addTask() {
+        global $errors;
+
+        if((!isset($_REQUEST['name'])) || !Validation::isAlpha($_REQUEST['name'])){
+            $errors['taskError']='Task Name is not valid';
+        }
+        if((!isset($_REQUEST['description'])) || !Validation::isAlpha($_REQUEST['description'])){
+            $errors['taskError']='Task Description is not valid';
+        }
+        if((!isset($_REQUEST['checklistID'])) || !Validation::isAlphaNum($_REQUEST['checklistID'])){
+            $errors['checkError']='Checklist ID is not valid';
+        }
+
+        $task = new Task($_REQUEST['name'], $_REQUEST['description'], false, uniqid("", true));
+        Model::insertTask($task, $_REQUEST['checklistID']);
+
+        //TODO faire la vue
+        new VisitorController();
+    }
 
 }
