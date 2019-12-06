@@ -41,6 +41,9 @@ class UserController {
             case "removeTask":
                 $this->removeTask();
                 break;
+            case "updateTask":
+                $this->updateTask();
+                break;
             case "changeTaskState":
                $this->changeTaskState();
                break;
@@ -236,55 +239,7 @@ class UserController {
         Model::deleteChecklist($_REQUEST['checklistID']);
 
         //TODO change this
-        $errors['TODO'] = 'this feature is not finished';
-        new VisitorController();
-    }
-
-    private function removeTask() {
-        global $errors;
-
-        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
-            $errors['taskIDNV'] = 'Task ID is not valid';
-            return;
-        }
-
-        Model::deleteTask($_REQUEST['taskID']);
-
-        //TODO change this
-        $errors['TODO'] = 'this feature is not finished';
-        new VisitorController();
-    }
-
-    private function changeTaskState() {
-        global $errors;
-
-        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
-            $errors['taskIDNV'] = 'Task ID is not valid';
-            return;
-        }
-
-        Model::changeTaskState($_REQUEST['taskID']);
-
-        //TODO change this
-        $errors['TODO'] = 'this feature is not finished';
-        new VisitorController();
-
-    }
-
-    private function modifyChecklist() {
-        global $errors;
-
-        if((!isset($_REQUEST['name'])) || !Validation::isAlpha($_REQUEST['name'])){
-            $errors['taskError']='Task Name is not valid';
-        }
-
-        if((!isset($_REQUEST['checklistID'])) || !Validation::isAlphaNum($_REQUEST['checklistID'])){
-            $errors['checkError']='Checklist ID is not valid';
-        }
-
-        Model::updateChecklistByName($_REQUEST['checklistID'], $_REQUEST['name']);
-
-        //TODO à faire la vue
+        $errors['TODO'] = 'this feature is not finished view';
         new VisitorController();
     }
 
@@ -312,6 +267,82 @@ class UserController {
         Model::insertTask($task, $checklistID);
 
         //TODO faire la vue
+        new VisitorController();
+    }
+
+    private function updateTask() {
+        global $errors;
+
+        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
+            $errors['taskIDNV'] = 'Task ID is not valid';
+            return;
+        }
+
+        $name = Validation::purify($_REQUEST['name']);
+        $description = Validation::purify($_REQUEST['description']);
+
+        if (empty($name)) {
+            $errors['taskNameError'] = 'Invalid name !';
+            return;
+        }
+        if (empty($_REQUEST['description'])) {
+            $errors['taskDescriptionError'] = 'Invalid description !';
+            return;
+        }
+
+        $task = new Task($name, $description, false, uniqid("", true));
+        Model::updateTask($taskID, $task);
+
+        //TODO faire la vue
+        new VisitorController();
+    }
+
+    private function removeTask() {
+        global $errors;
+
+        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
+            $errors['taskIDNV'] = 'Task ID is not valid';
+            return;
+        }
+
+        Model::deleteTask($_REQUEST['taskID']);
+
+        //TODO change this
+        $errors['TODO'] = 'this feature is not finished view';
+        new VisitorController();
+    }
+
+    private function changeTaskState() {
+        global $errors;
+
+        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
+            $errors['taskIDNV'] = 'Task ID is not valid';
+            return;
+        }
+
+        Model::changeTaskState($_REQUEST['taskID']);
+
+        //TODO change this
+        $errors['TODO'] = 'this feature is not finished view ';
+        new VisitorController();
+
+    }
+
+    private function modifyChecklist() {
+        global $errors;
+
+        if((!isset($_REQUEST['name'])) || !Validation::isAlpha($_REQUEST['name'])){
+            $errors['taskError']='Task Name is not valid';
+        }
+
+        if((!isset($_REQUEST['checklistID'])) || !Validation::isAlphaNum($_REQUEST['checklistID'])){
+            $errors['checkError']='Checklist ID is not valid';
+        }
+
+        Model::updateChecklistByName($_REQUEST['checklistID'], $_REQUEST['name']);
+
+        //TODO à faire la vue
+        $errors['TODO'] = 'this feature is not finished(view)';
         new VisitorController();
     }
 

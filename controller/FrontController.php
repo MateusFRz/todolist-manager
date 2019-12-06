@@ -15,6 +15,7 @@ class FrontController {
             $action = $_REQUEST['action'];
 
         try {
+            //TODO faire des vérification avant les appels (Autorisation d'action)
             switch ($action) {
                 case "publicPage":
                 case NULL:
@@ -30,6 +31,7 @@ class FrontController {
                 case "removeChecklist":
                 case "modifyChecklist":
                 case "addTask":
+                case "updateTask":
                 case "signup":
                 case "signupPage" :
                 case "loginPage":

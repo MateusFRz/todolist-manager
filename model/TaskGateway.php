@@ -35,7 +35,7 @@ class TaskGateway {
             ':name' => [$newTask->getName(), PDO::PARAM_STR],
             ':desc' => [$newTask->getDescription(), PDO::PARAM_STR],
             ':done' => [$newTask->isDone(), PDO::PARAM_BOOL],
-            ':id' => [$newTask->getID(), PDO::PARAM_INT]
+            ':id' => [$taskID, PDO::PARAM_INT]
         ));
     }
 

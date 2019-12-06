@@ -34,7 +34,7 @@ class ChecklistGateway {
         $this->db->executeQuery($query, array(
             ':name' => [$checklistName, PDO::PARAM_STR],
             ':id' => [$checklistID, PDO::PARAM_STR]
-        ))
+        ));
     }
 
     public function updateChecklist($checklistID, Checklist $newChecklist) {
