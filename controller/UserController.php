@@ -37,7 +37,7 @@ class UserController {
                 throw new Exception("Bad request", 400);
         }
 
-        require_once $rep."/view/vue.php";
+        require_once $rep . "/view/vue.php";
     }
 
     private static function login() {
@@ -64,7 +64,7 @@ class UserController {
 
 
         $public = false;
-        require_once $rep."/view/vue.php";
+        require_once $rep . "/view/vue.php";
     }
 
     private function signup() {
