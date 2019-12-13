@@ -40,29 +40,28 @@ class UserController {
         require_once $rep."/view/vue.php";
     }
 
-    private function login() {
+    private static function login() {
         global $successes, $rep, $public;
 
-        if (isset($_REQUEST['email']) && isset($_REQUEST['password'])) {
-            $email = Validation::purify($_REQUEST['email']);
-            $password = $_REQUEST['password'];
+        $email = "";
+        $password = "";
 
-            if (!Validation::isEmail($email)) {
-                throw new Exception('Bad email address please retry with good one !', 400);
-            }
-
-            $user = Model::findUserByEmail($email);
-
-            if ($user == null || !password_verify($password, $user->getPassword())) {
-                throw new Exception('Account not valid', 400);
-            }
-
-            $_SESSION['login'] = true;
-            $_SESSION['user'] = $user;
-            $successes['login'] = 'You have login with success';
-        } else {
-            throw new Exception('Password or email is missing !', 400);
+        if (!Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password)) {
+            throw new Exception('Bad email address or password', 400);
         }
+        else if (!Validation::isEmail($email)) {
+            throw new Exception('Bad email address please retry with good one !', 400);
+        }
+
+        $user = Model::findUserByEmail($email);
+
+        if ($user == null || !password_verify($password, $user->getPassword())) {
+            throw new Exception('Account not valid', 400);
+        }
+
+        $_SESSION['user'] = $user;
+        $successes['login'] = 'You have login with success';
+
 
         $public = false;
         require_once $rep."/view/vue.php";
@@ -71,13 +70,27 @@ class UserController {
     private function signup() {
         global $successes;
 
+        $name = "";
+        $surname = "";
+        $email = "";
+        $password = "";
+
+        if (!Validation::isValid($_REQUEST['name'], $name) || !Validation::isValid($_REQUEST['surname'], $surname) ||
+            !Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password)) {
+
+            throw new Exception('Something wrong', 400);
+        }
+        //TODO J'ai stop ici (Nico) Faire fin du refractoring dans User, Task et Checklist
+        else if (!Validation::isEmail($email)) {
+            throw new Exception('Bad email address please retry with good one !', 400);
+        }
 
         if (isset($_REQUEST['email']) && isset($_REQUEST['password'])
             && isset($_REQUEST['name']) && isset($_REQUEST['surname'])) {
             $name = Validation::purify($_REQUEST['name']);
             $surname = Validation::purify($_REQUEST['surname']);
             $email = Validation::purify($_REQUEST['email']);
-            $password = $_REQUEST['password'];
+            $password = Validation::purify($_REQUEST['password']);
 
             $user = Model::findUserByEmail($email);
             if ($user != null) {
