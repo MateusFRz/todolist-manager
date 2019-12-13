@@ -1,4 +1,7 @@
 <?php
+global $public;
+
+$checklists = Model::findChecklistByPublic($public);
 
 require_once "pageContent/header.php";
 

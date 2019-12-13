@@ -8,10 +8,10 @@ class Connection extends PDO {
      * Connection constructor.
      * @param $dsn
      * @param $username
-     * @param $passwd
+     * @param $password
      */
-    public function __construct($dsn, $username, $passwd) {
-        parent::__construct($dsn, $username, $passwd);
+    public function __construct($dsn, $username, $password) {
+        parent::__construct($dsn, $username, $password);
         $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
@@ -22,6 +22,7 @@ class Connection extends PDO {
      */
     public function executeQuery(string $query, array $parameters = []): bool {
         $this->stmt = parent::prepare($query);
+
         foreach ($parameters as $name => $value) {
             $this->stmt->bindValue($name, $value[0], $value[1]);
         }

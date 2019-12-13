@@ -1,5 +1,6 @@
 <div class="container">
     <?php
+    if (!empty($errors)):
     foreach ($errors as $error):
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -9,7 +10,8 @@
             </button>
         </div>
     <?php endforeach;
-
+        endif;
+     if (!empty($successes)):
     foreach ($successes as $success): ?>
 
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -18,5 +20,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    <?php endforeach; ?>
+    <?php endforeach;
+    endif;
+    ?>
 </div>

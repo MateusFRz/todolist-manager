@@ -6,7 +6,7 @@ class FrontController {
      * FrontController constructor.
      */
     public function __construct() {
-        global $rep,$errors, $successes;
+        global $errors, $rep;
         $action = NULL;
 
         session_start();
@@ -15,7 +15,6 @@ class FrontController {
             $action = $_REQUEST['action'];
 
         try {
-            //TODO faire des vérification avant les appels (Autorisation d'action)
             switch ($action) {
                 case "publicPage":
                 case NULL:
@@ -35,19 +34,16 @@ class FrontController {
                 case "signup":
                 case "signupPage" :
                 case "loginPage":
-                    new UserController($action);
+                    new FrontUserController($action);
                     break;
                 default:
-                    $errors['action'] = "Action no found !";
-                    break;
+                    throw new Exception('Action no found !', 404);
             }
-        } catch (PDOException $PDOException) {
-            $errors['pdo'] = $PDOException->getMessage();
         } catch (Exception $exception) {
             $errors['exception'] = $exception->getMessage();
         }
 
         if (!empty($errors))
-            new VisitorController();
+            require_once $rep . "/view/vue.php";
     }
 }
