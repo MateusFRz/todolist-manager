@@ -37,7 +37,7 @@ class UserController {
                 throw new Exception("Bad request", 400);
         }
 
-        require_once $rep."/view/vue.php";
+        require_once $rep . "/view/vue.php";
     }
 
     private static function login() {
@@ -64,7 +64,7 @@ class UserController {
 
 
         $public = false;
-        require_once $rep."/view/vue.php";
+        require_once $rep . "/view/vue.php";
     }
 
     private function signup() {
@@ -80,7 +80,12 @@ class UserController {
 
             throw new Exception('Something wrong', 400);
         }
+<<<<<<< HEAD:controller/user/UserController.php
 
+=======
+        //TODO                                 IL N'Y A PAS DE 'R'
+        //TODO J'ai stop ici (Nico) Faire fin du ref(r)actoring dans User, Task
+>>>>>>> 47e7bc2f7fc1da965544c028938127cb7942d1d3:controller/UserController.php
         else if (!Validation::isEmail($email)) {
             throw new Exception('Bad email address please retry with good one !', 400);
         }

@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION['login'])):
+if (!Validation::isUser($_SESSION['user'])):
 ?>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 

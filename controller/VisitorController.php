@@ -3,10 +3,7 @@
 
 class VisitorController {
 
-    /**
-     * VisitorController constructor.
-     */
-    public function __construct(){
+    public static function publicPage() {
         global $rep, $public;
 
         $public = true;

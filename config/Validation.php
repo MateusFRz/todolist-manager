@@ -18,28 +18,6 @@ class Validation {
 
     /**
      * Validate if the value is
-     * a integer
-     *
-     * @param mixed $value
-     * @return boolean
-     */
-    public static function isInt($value) {
-        return filter_var($value, FILTER_VALIDATE_INT);
-    }
-
-    /**
-     * Validate if the value is
-     * a float
-     *
-     * @param mixed $value
-     * @return boolean
-     */
-    public static function isFloat($value) {
-        return filter_var($value, FILTER_VALIDATE_FLOAT);
-    }
-
-    /**
-     * Validate if the value is
      * a letter of the alphabet
      *
      * @param mixed $value
@@ -62,39 +40,6 @@ class Validation {
 
     /**
      * Validate if the value is
-     * a url
-     *
-     * @param mixed $value
-     * @return boolean
-     */
-    public static function isUrl($value) {
-        return filter_var($value, FILTER_VALIDATE_URL);
-    }
-
-    /**
-     * Validate if the value is
-     * a uri
-     *
-     * @param mixed $value
-     * @return boolean
-     */
-    public static function isUri($value) {
-        return filter_var($value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => "/^[A-Za-z0-9-\/_]+$/")));
-    }
-
-    /**
-     * Validate if the value is
-     * true or false
-     *
-     * @param mixed $value
-     * @return boolean
-     */
-    public static function isBool($value) {
-        return is_bool(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE));
-    }
-
-    /**
-     * Validate if the value is
      * a e-mail
      *
      * @param mixed $value
@@ -113,7 +58,7 @@ class Validation {
     }
 
     public static  function  isValid($value, &$out) : bool {
-        if (isset($value) && !empty($value)) {
+        if (isset($value) && !empty($value) && $value != "") {
             $out = Validation::purify($value);
             return true;
         }

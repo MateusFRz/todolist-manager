@@ -29,7 +29,7 @@ class TaskController {
                 throw new Exception("Bad request", 400);
         }
 
-        require_once $rep."/view/vue.php";
+        require_once $rep . "/view/vue.php";
     }
 
     private function addTask() {
