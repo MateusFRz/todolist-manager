@@ -108,11 +108,15 @@ class Validation {
         return filter_var($password, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/"]]);
     }
 
+    public static function isUser($value) {
+        return $value instanceof User;
+    }
+
     public static  function  isValid($value, &$out) : bool {
         if (isset($value) && !empty($value)) {
             $out = Validation::purify($value);
             return true;
         }
-        else return false;
+        return false;
     }
 }
