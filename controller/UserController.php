@@ -76,16 +76,11 @@ class UserController {
         $password = "";
 
         if (!Validation::isValid($_REQUEST['name'], $name) || !Validation::isValid($_REQUEST['surname'], $surname) ||
-            !Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password)) {
+            !Validation::isValid($_REQUEST['email'],    $email) || !Validation::isValid($_REQUEST['password'], $password)) {
 
             throw new Exception('Something wrong', 400);
         }
-<<<<<<< HEAD:controller/user/UserController.php
 
-=======
-        //TODO                                 IL N'Y A PAS DE 'R'
-        //TODO J'ai stop ici (Nico) Faire fin du ref(r)actoring dans User, Task
->>>>>>> 47e7bc2f7fc1da965544c028938127cb7942d1d3:controller/UserController.php
         else if (!Validation::isEmail($email)) {
             throw new Exception('Bad email address please retry with good one !', 400);
         }
