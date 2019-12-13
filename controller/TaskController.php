@@ -9,6 +9,8 @@ class TaskController {
      * @param $action
      * @throws Exception
      */
+
+    /*
     public function __construct($action) {
         global $rep;
 
@@ -30,9 +32,9 @@ class TaskController {
         }
 
         require_once $rep."/view/vue.php";
-    }
+    }*/
 
-    private function addTask() {
+    public static function addTask() {
         global $errors;
 
         $name = "";
@@ -49,7 +51,7 @@ class TaskController {
         Model::insertTask($task, $checklistID);
     }
 
-    private function updateTask() {
+    public static function updateTask() {
         global $errors;
 
         $taskID = "";
@@ -66,7 +68,7 @@ class TaskController {
         Model::updateTask($taskID, $task);
     }
 
-    private function removeTask() {
+    public static function removeTask() {
         global $errors;
 
         $taskID = "";
@@ -78,7 +80,7 @@ class TaskController {
         Model::deleteTask($taskID);
     }
 
-    private function changeTaskState() {
+    public static function changeTaskState() {
         global $errors;
 
         $taskID = "";

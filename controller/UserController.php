@@ -8,6 +8,7 @@ class UserController {
      * @param $action
      * @throws Exception
      */
+    /*
     public function __construct($action) {
         global $rep;
 
@@ -39,8 +40,8 @@ class UserController {
 
         require_once $rep . "/view/vue.php";
     }
-
-    private static function login() {
+*/
+    public static function login() {
         global $successes, $rep, $public;
 
         $email = "";
@@ -67,7 +68,7 @@ class UserController {
         require_once $rep . "/view/vue.php";
     }
 
-    private function signup() {
+    public static function signup() {
         global $successes;
 
         $name = "";
@@ -104,11 +105,11 @@ class UserController {
 
             $successes['register'] = 'You created an account with success';
 
-            $this->loginPage();
+            UserController::loginPage();
 
     }
 
-    private function logout() {
+    public static function logout() {
         global $rep;
 
         session_destroy();
@@ -117,7 +118,7 @@ class UserController {
         require_once $rep . "/view/login.php";
     }
 
-    private function privateChecklist() {
+    public static function privateChecklist() {
         global $rep, $view, $public;
 
         if(!Validation::isValid($_SESSION['login'], $out)) {
@@ -129,20 +130,20 @@ class UserController {
         require_once $rep . "view/vue.php";
     }
 
-    private function profile() {
+    public static function profile() {
         global $rep;
         //TODO a changer
         require_once $rep . "/view/profile.php";
     }
 
 
-    private function signupPage() {
+    public static function signupPage() {
         global $rep;
         //TODO a changer
         require_once $rep . "/view/signup.php";
     }
 
-    private function loginPage() {
+    public static function loginPage() {
         global $rep;
         //TODO a changer
         require_once $rep . "/view/login.php";
