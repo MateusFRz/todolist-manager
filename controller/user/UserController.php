@@ -80,43 +80,32 @@ class UserController {
 
             throw new Exception('Something wrong', 400);
         }
-        //TODO J'ai stop ici (Nico) Faire fin du refractoring dans User, Task et Checklist
+
         else if (!Validation::isEmail($email)) {
             throw new Exception('Bad email address please retry with good one !', 400);
         }
 
-        if (isset($_REQUEST['email']) && isset($_REQUEST['password'])
-            && isset($_REQUEST['name']) && isset($_REQUEST['surname'])) {
-            $name = Validation::purify($_REQUEST['name']);
-            $surname = Validation::purify($_REQUEST['surname']);
-            $email = Validation::purify($_REQUEST['email']);
-            $password = Validation::purify($_REQUEST['password']);
+        $user = Model::findUserByEmail($email);
 
-            $user = Model::findUserByEmail($email);
-            if ($user != null) {
-                throw new Exception('Email already exist !', 400);
-            }
+        if ($user != null) {
+            throw new Exception('Email already exist !', 400);
+        }
 
-
-            if (!Validation::isAlpha($name))
-                throw new Exception('Bad name !', 400);
-            if (!Validation::isAlpha($surname))
-                throw new Exception('Bad surname !', 400);
-            if (!Validation::isEmail($email))
-                throw new Exception('Bad email address !', 400);
-            if (!Validation::isPassword($password))
-                throw new Exception('Bad password (Minimum eight characters, at least one uppercase letter, one lowercase letter and one number)', 400);
+        if (!Validation::isAlpha($name))
+            throw new Exception('Bad name !', 400);
+        if (!Validation::isAlpha($surname))
+            throw new Exception('Bad surname !', 400);
+        if (!Validation::isPassword($password))
+            throw new Exception('Bad password (Minimum eight characters, at least one uppercase letter, one lowercase letter and one number)', 400);
 
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
             Model::insertUser(new User($name, $surname, $email, $hash, uniqid("", true)));
 
             $successes['register'] = 'You created an account with success';
-        } else {
-            throw new Exception('Something is missing in the form !', 400);
-        }
 
-        $this->loginPage();
+            $this->loginPage();
+
     }
 
     private function logout() {
@@ -124,38 +113,38 @@ class UserController {
 
         session_destroy();
         unset($_SESSION);
-
+        //TODO a changer
         require_once $rep . "/view/login.php";
     }
 
     private function privateChecklist() {
         global $rep, $view, $public;
 
-        if (isset($_SESSION['login'])) {
-
-            $public = false;
-            require_once $rep . "view/vue.php";
-        } else {
+        if(!Validation::isValid($_SESSION['login'], $out)) {
             throw new Exception('You need to be connect to access this page !', 403);
         }
+
+        $public = false;
+        //TODO a changer
+        require_once $rep . "view/vue.php";
     }
 
     private function profile() {
         global $rep;
-
+        //TODO a changer
         require_once $rep . "/view/profile.php";
     }
 
 
     private function signupPage() {
         global $rep;
-
+        //TODO a changer
         require_once $rep . "/view/signup.php";
     }
 
     private function loginPage() {
         global $rep;
-
+        //TODO a changer
         require_once $rep . "/view/login.php";
     }
 }

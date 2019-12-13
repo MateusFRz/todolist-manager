@@ -35,21 +35,14 @@ class TaskController {
     private function addTask() {
         global $errors;
 
-        $name = Validation::purify($_REQUEST['name']);
-        $description = Validation::purify($_REQUEST['description']);
-        $checklistID = Validation::purify($_REQUEST['checklistID']);
+        $name = "";
+        $description = "";
+        $checklistID = "";
 
-        if (empty($name)) {
-            $errors['taskNameError'] = 'Invalid name !';
-            return;
-        }
-        if (empty($_REQUEST['description'])) {
-            $errors['taskDescriptionError'] = 'Invalid description !';
-            return;
-        }
-        if (empty($_REQUEST['checklistID'])) {
-            $errors['checklistIDError'] = 'Invalid checklist !';
-            return;
+        if (!Validation::isValid($_REQUEST['name'], $name) || !Validation::isValid($_REQUEST['description'], $description) ||
+            !Validation::isValid($_REQUEST['checklistID'], $checklistID)) {
+
+            throw new Exception('Something wrong', 403);
         }
 
         $task = new Task($name, $description, false, uniqid("", true));
@@ -59,21 +52,14 @@ class TaskController {
     private function updateTask() {
         global $errors;
 
-        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
-            $errors['taskIDNV'] = 'Task ID is not valid';
-            return;
-        }
+        $taskID = "";
+        $name = "";
+        $description = "";
 
-        $name = Validation::purify($_REQUEST['name']);
-        $description = Validation::purify($_REQUEST['description']);
+        if (!Validation::isValid($_REQUEST['taskID'], $taskID) || !Validation::isValid($_REQUEST['name'], $name) ||
+            !Validation::isValid($_REQUEST['description'], $description)) {
 
-        if (empty($name)) {
-            $errors['taskNameError'] = 'Invalid name !';
-            return;
-        }
-        if (empty($_REQUEST['description'])) {
-            $errors['taskDescriptionError'] = 'Invalid description !';
-            return;
+            throw new Exception('Something wrong', 403);
         }
 
         $task = new Task($name, $description, false, uniqid("", true));
@@ -83,22 +69,24 @@ class TaskController {
     private function removeTask() {
         global $errors;
 
-        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
-            $errors['taskIDNV'] = 'Task ID is not valid';
-            return;
+        $taskID = "";
+
+        if (!Validation::isValid($_REQUEST['taskID'], $taskID)) {
+            throw new Exception('Something Wrong');
         }
 
-        Model::deleteTask($_REQUEST['taskID']);
+        Model::deleteTask($taskID);
     }
 
     private function changeTaskState() {
         global $errors;
 
-        if(!isset($_REQUEST['taskID']) || !Validation::isAlphaNum($_REQUEST['taskID'])) {
-            $errors['taskIDNV'] = 'Task ID is not valid';
-            return;
+        $taskID = "";
+
+        if (!Validation::isValid($_REQUEST['taskID'], $taskID)) {
+            throw new Exception('Something Wrong');
         }
 
-        Model::changeTaskState($_REQUEST['taskID']);
+        Model::changeTaskState($taskID);
     }
 }
