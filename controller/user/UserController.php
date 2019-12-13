@@ -80,7 +80,8 @@ class UserController {
 
             throw new Exception('Something wrong', 400);
         }
-        //TODO J'ai stop ici (Nico) Faire fin du refractoring dans User, Task et Checklist
+        //TODO                                 IL N'Y A PAS DE 'R'
+        //TODO J'ai stop ici (Nico) Faire fin du ref(r)actoring dans User, Task
         else if (!Validation::isEmail($email)) {
             throw new Exception('Bad email address please retry with good one !', 400);
         }
