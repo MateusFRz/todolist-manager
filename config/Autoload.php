@@ -14,7 +14,7 @@ class Autoload
 
 
         if(!spl_autoload_register(array(self::$_instance, '_autoload'), false)) {
-            throw RuntimeException(sprintf('%s : Could not start the autoload', __CLASS__));
+            throw new RuntimeException(sprintf('%s : Could not start the autoload', __CLASS__));
         }
     }
 
