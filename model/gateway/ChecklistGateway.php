@@ -8,6 +8,34 @@ class ChecklistGateway {
         $this->db = $db;
     }
 
+    public function countByUser($userID) {
+        try {
+            $query = 'SELECT count(1) FROM checklist WHERE id_user=:id_user';
+
+            $this->db->executeQuery($query, array(
+                ':id_user' => [$userID, PDO::PARAM_STR]
+            ));
+
+            return $this->db->getResults();
+        } catch (PDOException $exception) {
+            throw new RuntimeException($exception->getMessage());
+        }
+    }
+
+    public function countByPublic($public) {
+        try {
+            $query = 'SELECT count(1) FROM checklist WHERE visible=:visible';
+
+            $this->db->executeQuery($query, array(
+                ':visible' => [$public, PDO::PARAM_STR]
+            ));
+
+            return $this->db->getResults();
+        } catch (PDOException $exception) {
+            throw new RuntimeException($exception->getMessage());
+        }
+    }
+
     public function findChecklistByUser($userID) {
         try {
             $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user';

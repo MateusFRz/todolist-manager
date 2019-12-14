@@ -4,6 +4,22 @@ class Model {
 
 
 
+    public static function countByPublic($public) {
+        global $dsn, $user, $password;
+
+        $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
+
+        return $checkGT->countByPublic($public)[0]['count(1)'];
+    }
+
+    public static function countByUser($userID) {
+        global $dsn, $user, $password;
+
+        $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
+
+        return $checkGT->countByUser($userID)[0]['count(1)'];
+    }
+
     public static function findChecklistByUser($userID) {
         global $dsn, $user, $password;
         $checklists = [];
@@ -40,6 +56,7 @@ class Model {
 
         return $checklists;
     }
+
     public static function updateChecklistByName($checklistID, $checklistName) {
         global $dsn, $user, $password;
 

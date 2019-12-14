@@ -18,7 +18,16 @@ class FrontController {
 
         Validation::purify($action);
         try {
-            $role = array_search($action, $actions);
+            $role=null;
+
+            foreach (array_keys($actions) as $actionKey) {
+                $find = array_search($action, $actions[$actionKey]);
+                if ($find != null) {
+                    $role = $actionKey;
+                    break;
+                }
+            }
+
             if ($role === "user") {
                 if (Validation::isUser($_SESSION['user'])) {
                     switch ($action) {
