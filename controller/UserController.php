@@ -2,67 +2,25 @@
 
 class UserController {
 
-
-    /**
-     * UserController constructor.
-     * @param $action
-     * @throws Exception
-     */
-    /*
-    public function __construct($action) {
-        global $rep;
-
-        switch ($action) {
-            case "login":
-                $this->login();
-                return;
-            case "signup":
-                $this->signup();
-                break;
-            case "logout":
-                $this->logout();
-                return;
-            case "private":
-                $this->privateChecklist();
-                break;
-            case "profile":
-                $this->profile();
-                return;
-            case "signupPage":
-                $this->signupPage();
-                return;
-            case "loginPage":
-                $this->loginPage();
-                return;
-            default:
-                throw new Exception("Bad request", 400);
-        }
-
-        require_once $rep . "/view/vue.php";
-    }
-*/
     public static function login() {
         global $successes, $rep, $public;
 
         $email = "";
         $password = "";
 
-        if (!Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password)) {
+        if (!Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password))
             throw new Exception('Bad email address or password', 400);
-        }
-        else if (!Validation::isEmail($email)) {
+        if (!Validation::isEmail($email))
             throw new Exception('Bad email address please retry with good one !', 400);
-        }
+
 
         $user = Model::findUserByEmail($email);
 
-        if ($user == null || !password_verify($password, $user->getPassword())) {
+        if ($user == null || !password_verify($password, $user->getPassword()))
             throw new Exception('Account not valid', 400);
-        }
 
         $_SESSION['user'] = $user;
         $successes['login'] = 'You have login with success';
-
 
         $public = false;
         require_once $rep . "/view/vue.php";
@@ -77,20 +35,16 @@ class UserController {
         $password = "";
 
         if (!Validation::isValid($_REQUEST['name'], $name) || !Validation::isValid($_REQUEST['surname'], $surname) ||
-            !Validation::isValid($_REQUEST['email'],    $email) || !Validation::isValid($_REQUEST['password'], $password)) {
-
+            !Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password))
             throw new Exception('Something wrong', 400);
-        }
 
-        else if (!Validation::isEmail($email)) {
+        else if (!Validation::isEmail($email))
             throw new Exception('Bad email address please retry with good one !', 400);
-        }
 
         $user = Model::findUserByEmail($email);
 
-        if ($user != null) {
+        if ($user != null)
             throw new Exception('Email already exist !', 400);
-        }
 
         if (!Validation::isAlpha($name))
             throw new Exception('Bad name !', 400);
@@ -99,14 +53,13 @@ class UserController {
         if (!Validation::isPassword($password))
             throw new Exception('Bad password (Minimum eight characters, at least one uppercase letter, one lowercase letter and one number)', 400);
 
-            $hash = password_hash($password, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            Model::insertUser(new User($name, $surname, $email, $hash, uniqid("", true)));
+        Model::insertUser(new User($name, $surname, $email, $hash, uniqid("", true)));
 
-            $successes['register'] = 'You created an account with success';
+        $successes['register'] = 'You created an account with success';
 
-            UserController::loginPage();
-
+        UserController::loginPage();
     }
 
     public static function logout() {
@@ -114,16 +67,16 @@ class UserController {
 
         session_destroy();
         unset($_SESSION);
+        $_SESSION = array();
         //TODO a changer
         require_once $rep . "/view/login.php";
     }
 
     public static function privateChecklist() {
-        global $rep, $view, $public;
+        global $rep, $public;
 
-        if(!Validation::isValid($_SESSION['login'], $out)) {
+        if (!Validation::isValid($_SESSION['login'], $out))
             throw new Exception('You need to be connect to access this page !', 403);
-        }
 
         $public = false;
         //TODO a changer

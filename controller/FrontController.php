@@ -74,8 +74,7 @@ class FrontController {
                         UserController::loginPage();
                         return;
                 }
-            } else
-                throw new Exception('You try something not valid !', 400);
+            } else throw new Exception('You try something not valid !', 400);
         } catch (Exception $exception) {
             $errors['exception'] = $exception->getMessage();
         }

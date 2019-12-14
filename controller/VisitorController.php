@@ -7,6 +7,6 @@ class VisitorController {
         global $rep, $public;
 
         $public = true;
-        require_once $rep."/view/vue.php";
+        require_once $rep . "/view/vue.php";
     }
 }
