@@ -12,7 +12,7 @@ class ChecklistController {
 
         if (!Validation::isValid($_REQUEST['taskName'], $taskName) || Validation::isValid($_REQUEST['taskDesc'], $taskDescription) ||
             !Validation::isValid($_REQUEST['checklistName'], $checklistName))
-            throw new Exception('Something wrong while register new checklist', 400);
+            throw new InvalidArgumentException('Something wrong while register new checklist', 400);
 
         $public = 1;
         if (Validation::isValid($_REQUEST['public'], $public)) $public = 0;
@@ -29,7 +29,7 @@ class ChecklistController {
         $checklistID = "";
 
         if (!Validation::isValid($_REQUEST['checklistID'], $checklistID))
-            throw new Exception('Checklist ID isn\'t valid', 400);
+            throw new InvalidArgumentException('Checklist ID isn\'t valid', 400);
 
         Model::deleteChecklist($checklistID);
     }
@@ -39,7 +39,7 @@ class ChecklistController {
         $checklistName = "";
 
         if (!Validation::isValid($_REQUEST['name'], $checklistID) || !Validation::isValid($_REQUEST['checklistID'], $checklistName))
-            throw new Exception('Name or ID isn\'t valid', 400);
+            throw new InvalidArgumentException('Name or ID isn\'t valid', 400);
 
         Model::updateChecklistByName($checklistID, $checklistName);
     }

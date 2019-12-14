@@ -10,7 +10,7 @@ class TaskController {
 
         if (!Validation::isValid($_REQUEST['name'], $name) || !Validation::isValid($_REQUEST['description'], $description) ||
             !Validation::isValid($_REQUEST['checklistID'], $checklistID))
-            throw new Exception('Something wrong', 403);
+            throw new InvalidArgumentException('Something wrong', 403);
 
         $task = new Task($name, $description, false, uniqid("", true));
         Model::insertTask($task, $checklistID);
@@ -23,7 +23,7 @@ class TaskController {
 
         if (!Validation::isValid($_REQUEST['taskID'], $taskID) || !Validation::isValid($_REQUEST['name'], $name) ||
             !Validation::isValid($_REQUEST['description'], $description))
-            throw new Exception('Something wrong', 403);
+            throw new InvalidArgumentException('Something wrong', 403);
 
 
         $task = new Task($name, $description, false, uniqid("", true));
@@ -33,9 +33,8 @@ class TaskController {
     public static function removeTask() {
         $taskID = "";
 
-        if (!Validation::isValid($_REQUEST['taskID'], $taskID)) {
-            throw new Exception('Something Wrong');
-        }
+        if (!Validation::isValid($_REQUEST['taskID'], $taskID))
+            throw new InvalidArgumentException('Something Wrong');
 
         Model::deleteTask($taskID);
     }
@@ -44,7 +43,7 @@ class TaskController {
         $taskID = "";
 
         if (!Validation::isValid($_REQUEST['taskID'], $taskID))
-            throw new Exception('Something Wrong');
+            throw new InvalidArgumentException('Something Wrong');
 
         Model::changeTaskState($taskID);
     }

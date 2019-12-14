@@ -9,15 +9,15 @@ class UserController {
         $password = "";
 
         if (!Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password))
-            throw new Exception('Bad email address or password', 400);
+            throw new InvalidArgumentException('Bad email address or password', 400);
         if (!Validation::isEmail($email))
-            throw new Exception('Bad email address please retry with good one !', 400);
+            throw new InvalidArgumentException('Bad email address please retry with good one !', 400);
 
 
         $user = Model::findUserByEmail($email);
 
         if ($user == null || !password_verify($password, $user->getPassword()))
-            throw new Exception('Account not valid', 400);
+            throw new InvalidArgumentException('Account not valid', 400);
 
         $_SESSION['user'] = $user;
         $successes['login'] = 'You have login with success';
@@ -36,22 +36,22 @@ class UserController {
 
         if (!Validation::isValid($_REQUEST['name'], $name) || !Validation::isValid($_REQUEST['surname'], $surname) ||
             !Validation::isValid($_REQUEST['email'], $email) || !Validation::isValid($_REQUEST['password'], $password))
-            throw new Exception('Something wrong', 400);
+            throw new InvalidArgumentException('Something wrong', 400);
 
         else if (!Validation::isEmail($email))
-            throw new Exception('Bad email address please retry with good one !', 400);
+            throw new InvalidArgumentException('Bad email address please retry with good one !', 400);
 
         $user = Model::findUserByEmail($email);
 
         if ($user != null)
-            throw new Exception('Email already exist !', 400);
+            throw new InvalidArgumentException('Email already exist !', 400);
 
         if (!Validation::isAlpha($name))
-            throw new Exception('Bad name !', 400);
+            throw new InvalidArgumentException('Bad name !', 400);
         if (!Validation::isAlpha($surname))
-            throw new Exception('Bad surname !', 400);
+            throw new InvalidArgumentException('Bad surname !', 400);
         if (!Validation::isPassword($password))
-            throw new Exception('Bad password (Minimum eight characters, at least one uppercase letter, one lowercase letter and one number)', 400);
+            throw new InvalidArgumentException('Bad password (Minimum eight characters, at least one uppercase letter, one lowercase letter and one number)', 400);
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -76,7 +76,7 @@ class UserController {
         global $rep, $public;
 
         if (!Validation::isValid($_SESSION['login'], $out))
-            throw new Exception('You need to be connect to access this page !', 403);
+            throw new InvalidArgumentException('You need to be connect to access this page !', 403);
 
         $public = false;
         //TODO a changer
