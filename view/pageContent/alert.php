@@ -1,5 +1,4 @@
-<div class="container">
-    <?php
+<?php
     if (!empty($errors)):
     foreach ($errors as $error):
         ?>
@@ -22,5 +21,3 @@
         </div>
     <?php endforeach;
     endif;
-    ?>
-</div>

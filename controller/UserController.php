@@ -22,8 +22,7 @@ class UserController {
         $_SESSION['user'] = $user;
         $successes['login'] = 'You have login with success';
 
-        $public = false;
-        require_once $rep . "/view/vue.php";
+        UserController::privateChecklist();
     }
 
     public static function signup() {
@@ -66,8 +65,9 @@ class UserController {
         global $rep;
 
         session_destroy();
-        unset($_SESSION);
+        session_unset();
         $_SESSION = array();
+
         //TODO a changer
         require_once $rep . "/view/login.php";
     }
@@ -75,30 +75,27 @@ class UserController {
     public static function privateChecklist() {
         global $rep, $public;
 
-        if (!Validation::isValid($_SESSION['login'], $out))
-            throw new InvalidArgumentException('You need to be connect to access this page !', 403);
-
-        $public = false;
         //TODO a changer
+        $public = false;
         require_once $rep . "view/vue.php";
     }
 
     public static function profile() {
-        global $rep;
         //TODO a changer
+        global $rep;
         require_once $rep . "/view/profile.php";
     }
 
 
     public static function signupPage() {
-        global $rep;
         //TODO a changer
+        global $rep;
         require_once $rep . "/view/signup.php";
     }
 
     public static function loginPage() {
-        global $rep;
         //TODO a changer
+        global $rep;
         require_once $rep . "/view/login.php";
     }
 }

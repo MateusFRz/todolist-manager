@@ -5,17 +5,17 @@
         <div class="card-body">
             <form method="post">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control" placeholder="Checklist name" name="name">
+                    <label for="checklistName">Checklist name</label>
+                    <input type="text" id="checklistName" class="form-control" placeholder="Checklist name" name="checklistName">
                 </div>
                 <div class="form-group">
-                    <label for="taskName">ame</label>
-                    <input type="text" id="name" class="form-control" placeholder="taskName name" name="taskName">
+                    <label for="taskName">Task name</label>
+                    <input type="text" id="taskName" class="form-control" placeholder="Task name" name="taskName">
                 </div>
 
                 <div class="from-group">
-                    <label for="taskDesc">Task</label>
-                    <textarea rows="5" class="form-control" name="taskDesc" id="taskDesc" placeholder="Task description"></textarea>
+                    <label for="taskDesc">Description</label>
+                    <textarea rows="3" class="form-control" name="taskDesc" id="taskDesc" placeholder="Description"></textarea>
                 </div>
                 <?php if (Validation::isUser($_SESSION['user'])):?>
                  <br>
@@ -25,7 +25,9 @@
                 </div>
                 <?php endif;?>
                 <br>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
                 <input type="hidden" name="action" value="addChecklist">
             </form>
         </div>

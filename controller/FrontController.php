@@ -22,7 +22,7 @@ class FrontController {
 
             foreach (array_keys($actions) as $actionKey) {
                 $find = array_search($action, $actions[$actionKey]);
-                if ($find != null) {
+                if ($find != null || $find === 0) {
                     $role = $actionKey;
                     break;
                 }
@@ -33,7 +33,7 @@ class FrontController {
                     switch ($action) {
                         case "profile":
                             UserController::profile();
-                            return;
+                            break;
                         case "private":
                             UserController::privateChecklist();
                             break;
@@ -48,7 +48,7 @@ class FrontController {
                     case NULL:
                     case "publicPage":
                         VisitorController::publicPage();
-                        return;
+                        break;
                     case "removeTask":
                         TaskController::removeTask();
                         break;
@@ -72,16 +72,16 @@ class FrontController {
                         break;
                     case "login":
                         UserController::login();
-                        return;
+                        break;
                     case "signup":
                         UserController::signup();
-                        return;
+                        break;
                     case "signupPage" :
                         UserController::signupPage();
-                        return;
+                        break;
                     case "loginPage":
                         UserController::loginPage();
-                        return;
+                        break;
                 }
             } else throw new UnexpectedValueException('You try something not valid !', 400);
         } catch (Exception $exception) {

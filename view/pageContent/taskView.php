@@ -59,7 +59,8 @@
     endforeach;
     endif; ?>
 </div>
-<nav aria-label="Page navigation example">
+
+<nav>
     <div class="text-center">NOT WORKING</div>
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">

@@ -19,7 +19,3 @@
 
 <?php
 require_once "navbar.php";
-
-if (!empty($errors) || !empty($successes))
-    require_once "alert.php";
-?>
