@@ -12,7 +12,7 @@ class TaskController {
             !Validation::isValid($_REQUEST['checklistID'], $checklistID))
             throw new InvalidArgumentException('Something wrong', 403);
 
-        $task = new Task($name, $description, false, uniqid("", true));
+        $task = new Task($name, $description, false, Utils::generatedID());
         Model::insertTask($task, $checklistID);
     }
 
@@ -26,7 +26,7 @@ class TaskController {
             throw new InvalidArgumentException('Something wrong', 403);
 
 
-        $task = new Task($name, $description, false, uniqid("", true));
+        $task = new Task($name, $description, false, Utils::generatedID());
         Model::updateTask($taskID, $task);
     }
 

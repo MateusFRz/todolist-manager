@@ -54,7 +54,7 @@ class UserController {
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        Model::insertUser(new User($name, $surname, $email, $hash, uniqid("", true)));
+        Model::insertUser(new User($name, $surname, $email, $hash, Utils::generatedID()));
 
         $successes['register'] = 'You created an account with success';
 
