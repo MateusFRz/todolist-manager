@@ -56,14 +56,4 @@ class Checklist {
     public function isPublic() {
         return $this->public;
     }
-
-    /**
-     * Add a task to checklist tasks
-     * @param Task $task
-     */
-    public function addTask(Task $task) {
-        $this->tasks[] = $task;
-    }
-
-
 }

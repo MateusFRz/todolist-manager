@@ -76,7 +76,7 @@ class UserController {
         global $rep, $public;
 
         //TODO a changer
-        $public = false;
+        $checklists = Model::findChecklistByPublic(false);
         require_once $rep . "view/vue.php";
     }
 
