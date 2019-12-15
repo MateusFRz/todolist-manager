@@ -10,15 +10,15 @@ class ChecklistController {
         $taskDescription = "";
         $checklistName = "";
 
-        if (!Validation::isValid($_REQUEST['taskName'], $taskName) || Validation::isValid($_REQUEST['taskDesc'], $taskDescription) ||
+        if (!Validation::isValid($_REQUEST['taskName'], $taskName) || !Validation::isValid($_REQUEST['taskDesc'], $taskDescription) ||
             !Validation::isValid($_REQUEST['checklistName'], $checklistName))
             throw new InvalidArgumentException('Something wrong while register new checklist', 400);
 
-        $public = 1;
-        if (Validation::isValid($_REQUEST['public'], $public)) $public = 0;
+        $public = 0;
+        if (!Validation::isValid($_REQUEST['private'], $public)) $public = 1;
         $userID = $_SESSION['user']->getID();
 
-        $task = new Task($taskName, $taskDescription, 0, Utils::generatedID());
+        $task[] = new Task($taskName, $taskDescription, 0, Utils::generatedID());
 
         Model::insertChecklist(new Checklist($checklistName, $task, $public, Utils::generatedID()), $userID);
 
@@ -38,7 +38,7 @@ class ChecklistController {
         $checklistID = "";
         $checklistName = "";
 
-        if (!Validation::isValid($_REQUEST['name'], $checklistID) || !Validation::isValid($_REQUEST['checklistID'], $checklistName))
+        if (!Validation::isValid($_REQUEST['checklistName'], $checklistID) || !Validation::isValid($_REQUEST['checklistID'], $checklistName))
             throw new InvalidArgumentException('Name or ID isn\'t valid', 400);
 
         Model::updateChecklistByName($checklistID, $checklistName);

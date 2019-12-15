@@ -3,7 +3,7 @@
 class UserController {
 
     public static function login() {
-        global $successes, $rep, $public;
+        global $successes;
 
         $email = "";
         $password = "";

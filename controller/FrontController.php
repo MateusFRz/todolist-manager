@@ -52,7 +52,7 @@ class FrontController {
                     case "removeTask":
                         TaskController::removeTask();
                         break;
-                    case "addChecklist":
+                    case "addTask":
                         TaskController::addTask();
                         break;
                     case "changeTaskState":
@@ -67,7 +67,7 @@ class FrontController {
                     case "modifyChecklist":
                         ChecklistController::modifyChecklist();
                         break;
-                    case "addTask":
+                    case "addChecklist":
                         ChecklistController::addChecklist();
                         break;
                     case "login":

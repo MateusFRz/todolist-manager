@@ -20,7 +20,7 @@
                 <?php if (Validation::isUser($_SESSION['user'])):?>
                  <br>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="public" name="public" value="yes">
+                    <input type="checkbox" class="form-check-input" id="public" name="private" value="yes">
                     <label class="form-check-label" for="public">Private</label>
                 </div>
                 <?php endif;?>
