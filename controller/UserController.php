@@ -62,39 +62,32 @@ class UserController {
     }
 
     public static function logout() {
-        global $rep;
-
         session_destroy();
         session_unset();
+        unset($_SESSION);
         $_SESSION = array();
 
-        //TODO a changer
-        require_once $rep . "/view/login.php";
+        VisitorController::publicPage();
     }
 
     public static function privateChecklist() {
-        global $rep, $public;
+        global $rep;
 
-        //TODO a changer
-        $checklists = Model::findChecklistByPublic(false);
+        $checklists = Model::findChecklistByUser($_SESSION['user']->getID());
         require_once $rep . "view/vue.php";
     }
 
     public static function profile() {
-        //TODO a changer
         global $rep;
         require_once $rep . "/view/profile.php";
     }
 
-
     public static function signupPage() {
-        //TODO a changer
         global $rep;
         require_once $rep . "/view/signup.php";
     }
 
     public static function loginPage() {
-        //TODO a changer
         global $rep;
         require_once $rep . "/view/login.php";
     }

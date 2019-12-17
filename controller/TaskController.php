@@ -14,6 +14,11 @@ class TaskController {
 
         $task = new Task($name, $description, false, Utils::generatedID());
         Model::insertTask($task, $checklistID);
+
+        if (Validation::isUser($_SESSION['user']))
+            UserController::privateChecklist();
+        else
+            VisitorController::publicPage();
     }
 
     public static function updateTask() {
@@ -28,6 +33,11 @@ class TaskController {
 
         $task = new Task($name, $description, false, Utils::generatedID());
         Model::updateTask($taskID, $task);
+
+        if (Validation::isUser($_SESSION['user']))
+            UserController::privateChecklist();
+        else
+            VisitorController::publicPage();
     }
 
     public static function removeTask() {
@@ -37,6 +47,11 @@ class TaskController {
             throw new InvalidArgumentException('Something Wrong');
 
         Model::deleteTask($taskID);
+
+        if (Validation::isUser($_SESSION['user']))
+            UserController::privateChecklist();
+        else
+            VisitorController::publicPage();
     }
 
     public static function changeTaskState() {
@@ -46,5 +61,10 @@ class TaskController {
             throw new InvalidArgumentException('Something Wrong');
 
         Model::changeTaskState($taskID);
+
+        if (Validation::isUser($_SESSION['user']))
+            UserController::privateChecklist();
+        else
+            VisitorController::publicPage();
     }
 }

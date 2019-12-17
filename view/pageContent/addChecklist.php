@@ -1,12 +1,12 @@
-    <div class="card p-0" style="width: 20rem;">
+    <div class="card" style="width: 20rem;">
         <div class="card-header">
             <h5 class="card-title">Add checklist</h5>
         </div>
         <div class="card-body">
             <form method="post">
                 <div class="form-group">
-                    <label for="checklistName">Checklist name</label>
-                    <input type="text" id="checklistName" class="form-control" placeholder="Checklist name" name="checklistName">
+                    <label for="checklistNameIn">Checklist name</label>
+                    <input type="text" id="checklistNameIn" class="form-control" placeholder="Checklist name" name="checklistName">
                 </div>
                 <div class="form-group">
                     <label for="taskName">Task name</label>
@@ -20,8 +20,8 @@
                 <?php if (Validation::isUser($_SESSION['user'])):?>
                  <br>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="public" name="private" value="yes">
-                    <label class="form-check-label" for="public">Private</label>
+                    <input type="checkbox" class="form-check-input" id="private" name="private" value="yes">
+                    <label class="form-check-label" for="private">Private</label>
                 </div>
                 <?php endif;?>
                 <br>

@@ -7,5 +7,3 @@ $password = "password";
 
 $errors = [];
 $successes = [];
-
-$view = [];

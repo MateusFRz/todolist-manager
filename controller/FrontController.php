@@ -33,13 +33,13 @@ class FrontController {
                     switch ($action) {
                         case "profile":
                             UserController::profile();
-                            break;
+                            return;
                         case "private":
                             UserController::privateChecklist();
-                            break;
+                            return;
                         case "logout":
                             UserController::logout();
-                            break;
+                            return;
                     }
                 } else
                     throw new Exception('You need to be connected');
@@ -48,40 +48,40 @@ class FrontController {
                     case NULL:
                     case "publicPage":
                         VisitorController::publicPage();
-                        break;
+                        return;
                     case "removeTask":
                         TaskController::removeTask();
-                        break;
+                        return;
                     case "addTask":
                         TaskController::addTask();
-                        break;
+                        return;
                     case "changeTaskState":
                         TaskController::changeTaskState();
-                        break;
+                        return;
                     case "updateTask":
                         TaskController::updateTask();
-                        break;
+                        return;
                     case "removeChecklist":
                         ChecklistController::removeChecklist();
-                        break;
+                        return;
                     case "modifyChecklist":
                         ChecklistController::modifyChecklist();
-                        break;
+                        return;
                     case "addChecklist":
                         ChecklistController::addChecklist();
-                        break;
+                        return;
                     case "login":
                         UserController::login();
-                        break;
+                        return;
                     case "signup":
                         UserController::signup();
-                        break;
+                        return;
                     case "signupPage" :
                         UserController::signupPage();
-                        break;
+                        return;
                     case "loginPage":
                         UserController::loginPage();
-                        break;
+                        return;
                 }
             } else throw new UnexpectedValueException('You try something not valid !', 400);
         } catch (Exception $exception) {
