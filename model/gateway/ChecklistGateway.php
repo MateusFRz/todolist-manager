@@ -8,7 +8,7 @@ class ChecklistGateway {
         $this->db = $db;
     }
 
-    public function countByUser($userID) {
+    public function countByUser($userID) : ?int {
         try {
             $query = 'SELECT count(1) FROM checklist WHERE id_user=:id_user';
 
@@ -22,7 +22,7 @@ class ChecklistGateway {
         }
     }
 
-    public function countByPublic($public) {
+    public function countByPublic($public) : ?int {
         try {
             $query = 'SELECT count(1) FROM checklist WHERE visible=:visible';
 
@@ -36,7 +36,7 @@ class ChecklistGateway {
         }
     }
 
-    public function findChecklistByUser($userID) {
+    public function findChecklistByUser($userID) : array {
         try {
             $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user';
 
@@ -50,7 +50,7 @@ class ChecklistGateway {
         }
     }
 
-    public function findChecklistByPublic($public) {
+    public function findChecklistByPublic($public) : array {
         try {
             $query = 'SELECT id,name,visible FROM checklist where visible=:visible';
 

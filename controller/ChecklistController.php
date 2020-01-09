@@ -3,6 +3,11 @@
 
 class ChecklistController {
 
+    /**
+     * Create and add
+     * a new Checklist in the Data Base
+     * with one Task
+     */
     public static function addChecklist() {
         global $successes;
 
@@ -32,6 +37,10 @@ class ChecklistController {
             VisitorController::publicPage();
     }
 
+    /**
+     * Delete a
+     * Checklist form the Data Base
+     */
     public static function removeChecklist() {
         global $successes;
 
@@ -49,6 +58,10 @@ class ChecklistController {
             VisitorController::publicPage();
     }
 
+    /**
+     * Modify a Checklist
+     * and update it in the Data Base
+     */
     public static function modifyChecklist() {
         $checklistID = "";
         $checklistName = "";

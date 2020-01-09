@@ -24,39 +24,29 @@ class Task {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName() : string {
         return $this->name;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
+    public function getDescription() : string {
         return $this->description;
     }
 
     /**
      * @return bool
      */
-    public function isDone() {
+    public function isDone() : bool {
         return $this->done;
     }
 
     /**
-     * @retrun int
+     * @retrun string
      */
-    public function getID() {
-        return$this->id;
+    public function getID() : string {
+        return $this->id;
     }
-
- /*   public function __toString()
-    {
-       return "Tache: </br>".
-           $this->getID() . "</br>".
-           $this->getName() . "</br>".
-           $this->getDescription() . "</br>".
-           $this->isDone() . "</br>";
-    }
-*/
 
 }

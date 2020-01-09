@@ -3,6 +3,9 @@
 
 class VisitorController {
 
+    /**
+     * Call the main view
+     */
     public static function publicPage() {
         global $rep;
 

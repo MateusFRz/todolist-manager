@@ -23,7 +23,7 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isAlpha($value) {
+    public static function isAlpha($value) : bool {
         return preg_match("/^[a-zA-Z \-]+$/", $value);
     }
 
@@ -34,7 +34,7 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isAlphaNum($value) {
+    public static function isAlphaNum($value) : bool {
         return preg_match("/^[a-zA-Z0-9 \-.]+$/", $value);
     }
 
@@ -45,18 +45,41 @@ class Validation {
      * @param mixed $value
      * @return boolean
      */
-    public static function isEmail($value) {
+    public static function isEmail($value) : bool {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function isPassword($password) {
+    /**
+     * Validate if the value
+     * is a valid password
+     *
+     * @param $password
+     * @return bool
+     */
+    public static function isPassword($password) : bool {
         return filter_var($password, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/"]]);
     }
 
-    public static function isUser($value) {
+    /**
+     * Validate if the value
+     * is a existing user
+     *
+     * @param $value
+     * @return bool
+     */
+    public static function isUser($value) : bool {
         return $value instanceof User;
     }
 
+    /**
+     * Validate if the value
+     * is not null
+     * and purify it
+     *
+     * @param $value
+     * @param $out
+     * @return bool
+     */
     public static  function  isValid($value, &$out) : bool {
         if (isset($value) && !empty($value) && $value != "") {
             $out = Validation::purify($value);

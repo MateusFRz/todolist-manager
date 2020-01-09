@@ -3,6 +3,10 @@
 
 class TaskController {
 
+    /**
+     * Create and add
+     * a Task in the Data Base
+     */
     public static function addTask() {
         $name = "";
         $description = "";
@@ -21,6 +25,10 @@ class TaskController {
             VisitorController::publicPage();
     }
 
+    /**
+     * Modify a Checklist
+     * and update it in the Data Base
+     */
     public static function updateTask() {
         $taskID = "";
         $name = "";
@@ -40,6 +48,10 @@ class TaskController {
             VisitorController::publicPage();
     }
 
+    /**
+     * Delete a
+     * Task form the Data Base
+     */
     public static function removeTask() {
         $taskID = "";
 
@@ -54,6 +66,10 @@ class TaskController {
             VisitorController::publicPage();
     }
 
+    /**
+     * Change the state
+     * of the State
+     */
     public static function changeTaskState() {
         $taskID = "";
 

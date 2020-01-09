@@ -26,72 +26,38 @@ class User {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getId() {
+    public function getId() : string {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @return string
      */
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName() {
+    public function getName() : string {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @return string
      */
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSurname() {
+    public function getSurname() : string {
         return $this->surname;
     }
 
     /**
-     * @param mixed $surname
+     * @return string
      */
-    public function setSurname($surname) {
-        $this->surname = $surname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail() {
+    public function getEmail() : string {
         return $this->email;
     }
 
     /**
-     * @param mixed $email
+     * @return string
      */
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword() {
+    public function getPassword() : string {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password) {
-        $this->password = $password;
-    }
 }

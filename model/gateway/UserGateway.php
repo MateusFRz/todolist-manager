@@ -8,7 +8,7 @@ class UserGateway {
         $this->db = $db;
     }
 
-    public function findUserByID($userID) {
+    public function findUserByID($userID) : array {
         try {
             $query = 'SELECT id,name,surname,email,password FROM user where id=:id;';
 
@@ -22,7 +22,7 @@ class UserGateway {
         }
     }
 
-    public function findUserByEmail($email) {
+    public function findUserByEmail($email) : array{
         try {
             $query = 'SELECT id,name,surname,email,password FROM user where email=:email;';
 

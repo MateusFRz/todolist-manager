@@ -24,10 +24,9 @@ class Checklist {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getId()
-    {
+    public function getId() : string {
         return $this->id;
     }
 
@@ -36,7 +35,7 @@ class Checklist {
      * Return all tasks of the checklist
      * @return Task[]
      */
-    public function getTasks() {
+    public function getTasks() : array {
         return $this->tasks;
     }
 
@@ -44,8 +43,7 @@ class Checklist {
      * Return checklist name
      * @return string
      */
-    public function getName(): string
-    {
+    public function getName(): string {
         return $this->name;
     }
 
@@ -53,7 +51,7 @@ class Checklist {
      * Return if checklist is public or not
      * @return bool true -> yes | false -> no
      */
-    public function isPublic() {
+    public function isPublic() : bool{
         return $this->public;
     }
 }

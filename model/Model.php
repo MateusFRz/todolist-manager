@@ -4,7 +4,7 @@ class Model {
 
 
 
-    public static function countByPublic($public) {
+    public static function countByPublic($public) : ?int {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
@@ -12,7 +12,7 @@ class Model {
         return $checkGT->countByPublic($public)[0]['count(1)'];
     }
 
-    public static function countByUser($userID) {
+    public static function countByUser($userID) : ?int {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
@@ -20,7 +20,7 @@ class Model {
         return $checkGT->countByUser($userID)[0]['count(1)'];
     }
 
-    public static function findChecklistByUser($userID) {
+    public static function findChecklistByUser($userID) : ?Checklist {
         global $dsn, $user, $password;
         $checklists = [];
 
@@ -39,7 +39,7 @@ class Model {
         return $checklists;
     }
 
-    public static function findChecklistByPublic($public) {
+    public static function findChecklistByPublic($public) : ?Checklist{
         global $dsn, $user, $password;
         $checklists = [];
 
@@ -91,7 +91,7 @@ class Model {
         $checkGT->deleteChecklist($checklistID);
     }
 
-    public static function findTaskByID($taskID) {
+    public static function findTaskByID($taskID) : ?Task {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
@@ -103,7 +103,7 @@ class Model {
         return new Task($result['name'], $result['description'], $result['done'], $taskID);
     }
 
-    public static function findTaskByChecklistID($checklistID) {
+    public static function findTaskByChecklistID($checklistID) : ?Task {
         global $dsn, $user, $password;
         $tasks = [];
 
@@ -149,7 +149,7 @@ class Model {
         $taskGT->changeTaskState($taskID);
     }
 
-    public static function findUserByID($userID) {
+    public static function findUserByID($userID) : ?User {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
@@ -161,7 +161,7 @@ class Model {
         return new User($result['name'], $result['surname'], $result['email'], $result['password'], $result['id']);
     }
 
-    public static function findUserByEmail($email) {
+    public static function findUserByEmail($email) : ?User {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));

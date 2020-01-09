@@ -8,7 +8,7 @@ class TaskGateway {
         $this->db = $db;
     }
 
-    public function findTaskByID($taskID) {
+    public function findTaskByID($taskID) : array {
         try {
             $query = 'SELECT name, description, done FROM `task` WHERE id  = :id;';
 
@@ -22,7 +22,7 @@ class TaskGateway {
         }
     }
 
-    public function findTaskByChecklistID($checklistID) {
+    public function findTaskByChecklistID($checklistID) : array {
         try {
             $query = 'SELECT id, name, description, done FROM task WHERE id_checklist=:id_checklist;';
 

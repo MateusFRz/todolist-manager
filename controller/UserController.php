@@ -2,6 +2,10 @@
 
 class UserController {
 
+    /**
+     * Connect an user if
+     * he is already on the Data Base
+     */
     public static function login() {
         global $successes;
 
@@ -25,6 +29,10 @@ class UserController {
         UserController::privateChecklist();
     }
 
+    /**
+    * Create and add
+    * a User in the Data Base
+    */
     public static function signup() {
         global $successes;
 
@@ -61,6 +69,9 @@ class UserController {
         UserController::loginPage();
     }
 
+    /**
+     * Disconnect the user
+     */
     public static function logout() {
         session_destroy();
         session_unset();
@@ -70,6 +81,9 @@ class UserController {
         VisitorController::publicPage();
     }
 
+    /**
+     * Call the view for the private Checklist
+     */
     public static function privateChecklist() {
         global $rep;
 
@@ -77,16 +91,25 @@ class UserController {
         require_once $rep . "view/vue.php";
     }
 
+    /**
+     * Call the profile view
+     */
     public static function profile() {
         global $rep;
         require_once $rep . "/view/profile.php";
     }
 
+    /**
+     * Call the sign up view
+     */
     public static function signupPage() {
         global $rep;
         require_once $rep . "/view/signup.php";
     }
 
+    /**
+     * call the login view
+     */
     public static function loginPage() {
         global $rep;
         require_once $rep . "/view/login.php";

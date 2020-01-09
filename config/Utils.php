@@ -3,7 +3,12 @@
 
 class Utils {
 
-    public static function generatedID() {
+    /**
+     * Generate a random ID
+     *
+     * @return int
+     */
+    public static function generatedID() : string {
         return uniqid("", true);
     }
 
