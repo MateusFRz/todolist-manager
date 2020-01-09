@@ -91,7 +91,7 @@ class Model {
         $checkGT->deleteChecklist($checklistID);
     }
 
-    public static function findTaskByID($taskID) : array {
+    public static function findTaskByID($taskID) : Task {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
