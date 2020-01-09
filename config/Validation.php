@@ -54,7 +54,7 @@ class Validation {
      * is a valid password
      *
      * @param $password
-     * @return bool
+     * @return boolean
      */
     public static function isPassword($password) : bool {
         return filter_var($password, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/"]]);
@@ -65,9 +65,9 @@ class Validation {
      * is a existing user
      *
      * @param $value
-     * @return bool
+     * @return boolean
      */
-    public static function isUser($value) : bool {
+    public static function isUser($value) {
         return $value instanceof User;
     }
 
@@ -78,7 +78,7 @@ class Validation {
      *
      * @param $value
      * @param $out
-     * @return bool
+     * @return boolean
      */
     public static  function  isValid($value, &$out) : bool {
         if (isset($value) && !empty($value) && $value != "") {

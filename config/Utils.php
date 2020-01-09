@@ -6,7 +6,7 @@ class Utils {
     /**
      * Generate a random ID
      *
-     * @return int
+     * @return string
      */
     public static function generatedID() : string {
         return uniqid("", true);

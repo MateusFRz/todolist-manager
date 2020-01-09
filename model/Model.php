@@ -20,7 +20,7 @@ class Model {
         return $checkGT->countByUser($userID)[0]['count(1)'];
     }
 
-    public static function findChecklistByUser($userID) : ?Checklist {
+    public static function findChecklistByUser($userID) : array {
         global $dsn, $user, $password;
         $checklists = [];
 
@@ -39,7 +39,7 @@ class Model {
         return $checklists;
     }
 
-    public static function findChecklistByPublic($public) : ?Checklist{
+    public static function findChecklistByPublic($public) : array {
         global $dsn, $user, $password;
         $checklists = [];
 
@@ -91,7 +91,7 @@ class Model {
         $checkGT->deleteChecklist($checklistID);
     }
 
-    public static function findTaskByID($taskID) : ?Task {
+    public static function findTaskByID($taskID) : array {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
@@ -103,7 +103,7 @@ class Model {
         return new Task($result['name'], $result['description'], $result['done'], $taskID);
     }
 
-    public static function findTaskByChecklistID($checklistID) : ?Task {
+    public static function findTaskByChecklistID($checklistID) : array {
         global $dsn, $user, $password;
         $tasks = [];
 
@@ -149,7 +149,7 @@ class Model {
         $taskGT->changeTaskState($taskID);
     }
 
-    public static function findUserByID($userID) : ?User {
+    public static function findUserByID($userID) :      ?User {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
