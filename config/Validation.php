@@ -10,11 +10,21 @@ class Validation {
      * @param string $string
      * @return string
      */
-    public static function purify($string) {
+    public static function purify($string) : string {
         $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
         $string = filter_var($string, FILTER_SANITIZE_STRING);
         return $string;
     }
+
+    /**
+     * Validate if the value is
+     * an int
+     */
+
+    public static function isInt($value) : bool {
+        return preg_match("/^[0-9]+$/", $value);
+    }
+
 
     /**
      * Validate if the value is
@@ -67,7 +77,7 @@ class Validation {
      * @param $value
      * @return boolean
      */
-    public static function isUser($value) {
+    public static function isUser($value) : bool {
         return $value instanceof User;
     }
 

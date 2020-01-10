@@ -3,17 +3,15 @@
 
 class VisitorController {
 
-    /**
-     * Call the main view
-     * @param int $page
-     */
     public static function publicPage() {
         global $rep;
+
+        $pName = "Public page";
 
         $nbTotal=Model::countByPublic(true);
         $nbPages = ceil($nbTotal/10);
 
-        if(isset($_REQUEST['page'])){
+        if(isset($_REQUEST['page']) && Validation::isInt($_REQUEST['page'])){
             $page = $_REQUEST['page'];
             if($page>$nbPages)
                 $page=$nbPages;

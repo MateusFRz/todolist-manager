@@ -68,12 +68,19 @@
 </div>
 
 <nav>
-    <?php if (isset($nbPages) && isset($page)): ?>
+    <?php if (!empty($nbPages) && !empty($page)): ?>
     <ul class="pagination justify-content-center">
         <li class="page-item <?= ($nbPages > 1  && $page > 1 ? "" : "disabled") ?>">
             <a class="page-link" href="?page=<?= $page-1 ?>" tabindex="-1">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="?page=<?= $page?>"><?= $page ?></a></li>
+
+        <?php for ($i = 1; $i <= $nbPages; $i++):
+                if ($i == $page): ?>
+            <li class="page-item active"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+        <?php else: ?>
+            <li class="page-item"><a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a></li>
+        <?php endif; endfor;?>
+
         <li class="page-item <?= ($nbPages > $page ? "" : "disabled") ?>">
             <a class="page-link" href="?page=<?= $page+1 ?>">Next</a>
         </li>

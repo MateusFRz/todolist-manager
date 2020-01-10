@@ -4,6 +4,7 @@ require_once "pageContent/header.php";
 ?>
     <body>
     <div class="container">
+        <h3>Profile page</h3>
         <fieldset disabled>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

@@ -92,13 +92,15 @@ class UserController {
         $nbTotal=Model::countByUser($_SESSION['user']->getID());
         $nbPages = ceil($nbTotal/10);
 
-        if(isset($_REQUEST['page']) && is_int($_REQUEST['page'])){
+        if(isset($_REQUEST['page']) && Validation::isInt($_REQUEST['page'])){
             $page = $_REQUEST['page'];
             if($page>$nbPages)
                 $page=$nbPages;
         } else
             $page = 1;
 
+
+        $pName = "Private page";
         $checklists = Model::findChecklistByUser($_SESSION['user']->getID(), $page-1);
         require_once $rep . "view/vue.php";
     }
