@@ -1,7 +1,7 @@
 <body>
 <div class="container">
     <?php
-    if (!empty($errors) || !empty($successes))
+    if (!isset($errors) || !isset($successes))
         require_once "alert.php";
 
     require_once "taskView.php";

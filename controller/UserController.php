@@ -87,7 +87,19 @@ class UserController {
     public static function privateChecklist() {
         global $rep;
 
-        $checklists = Model::findChecklistByUser($_SESSION['user']->getID());
+        if (!Validation::isUser($_SESSION['user'])) throw  new RuntimeException("User no valid");
+
+        $nbTotal=Model::countByUser($_SESSION['user']->getID());
+        $nbPages = ceil($nbTotal/10);
+
+        if(isset($_REQUEST['page']) && is_int($_REQUEST['page'])){
+            $page = $_REQUEST['page'];
+            if($page>$nbPages)
+                $page=$nbPages;
+        } else
+            $page = 1;
+
+        $checklists = Model::findChecklistByUser($_SESSION['user']->getID(), $page-1);
         require_once $rep . "view/vue.php";
     }
 

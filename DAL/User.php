@@ -17,7 +17,7 @@ class User {
      * @param $email
      * @param $password
      */
-    public function __construct($name, $surname, $email, $password, $id) {
+    public function __construct(String $name, String $surname, String $email, String $password, String $id) {
         $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
@@ -28,7 +28,7 @@ class User {
     /**
      * @return string
      */
-    public function getId() : string {
+    public function getID() : string {
         return $this->id;
     }
 

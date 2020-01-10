@@ -1,11 +1,8 @@
 <div class="card-columns">
     <?php
-    /* $rowCount = 1;
-     $numCols = 3;*/
 
     require_once "addChecklist.php";
-    if (!empty($checklists)):
-        ?>
+    if (isset($checklists)): ?>
 
         <?php foreach ($checklists as $checklist): ?>
         <div class="card" style="width: 20rem;">
@@ -66,30 +63,20 @@
             </div>
         </div>
     <?php
-        /*$rowCount++;
-        if ($rowCount % $numCols == 0) echo "</div></br><div class=\"row\">";*/
     endforeach;
     endif; ?>
 </div>
 
 <nav>
-    <div class="text-center">NOT WORKING</div>
+    <?php if (isset($nbPages) && isset($page)): ?>
     <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        <li class="page-item <?= ($nbPages > 1  && $page > 1 ? "" : "disabled") ?>">
+            <a class="page-link" href="?page=<?= $page-1 ?>" tabindex="-1">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">5</a></li>
-        <li class="page-item"><a class="page-link" href="#">...</a></li>
-        <li class="page-item"><a class="page-link" href="#">11</a></li>
-        <li class="page-item"><a class="page-link" href="#">12</a></li>
-        <li class="page-item"><a class="page-link" href="#">13</a></li>
-        <li class="page-item"><a class="page-link" href="#">14</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+        <li class="page-item"><a class="page-link" href="?page=<?= $page?>"><?= $page ?></a></li>
+        <li class="page-item <?= ($nbPages > $page ? "" : "disabled") ?>">
+            <a class="page-link" href="?page=<?= $page+1 ?>">Next</a>
         </li>
     </ul>
+    <?php endif; ?>
 </nav>

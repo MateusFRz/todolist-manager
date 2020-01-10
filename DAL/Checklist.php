@@ -15,7 +15,7 @@ class Checklist {
      * @param $public
      * @param $id
      */
-    public function __construct($name, $tasks, $public, $id)
+    public function __construct(String $name, ?array $tasks, int $public, String $id)
     {
         $this->name = $name;
         $this->tasks = ($tasks == null ? [] : $tasks);
@@ -26,7 +26,7 @@ class Checklist {
     /**
      * @return string
      */
-    public function getId() : string {
+    public function getID() : string {
         return $this->id;
     }
 

@@ -81,7 +81,7 @@ class Validation {
      * @return boolean
      */
     public static  function  isValid($value, &$out) : bool {
-        if (isset($value) && !empty($value) && $value != "") {
+        if (!empty($value) && $value != "") {
             $out = Validation::purify($value);
             return true;
         }

@@ -4,7 +4,7 @@ class Model {
 
 
 
-    public static function countByPublic($public) : ?int {
+    public static function countByPublic(bool $public) : ?int {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
@@ -12,7 +12,7 @@ class Model {
         return $checkGT->countByPublic($public)[0]['count(1)'];
     }
 
-    public static function countByUser($userID) : ?int {
+    public static function countByUser(String $userID) : ?int {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
@@ -20,12 +20,12 @@ class Model {
         return $checkGT->countByUser($userID)[0]['count(1)'];
     }
 
-    public static function findChecklistByUser($userID) : array {
+    public static function findChecklistByUser(String $userID, int $page = 0) : ?array {
         global $dsn, $user, $password;
         $checklists = [];
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
-        $results = $checkGT->findChecklistByUser($userID);
+        $results = $checkGT->findChecklistByUser($userID, $page);
 
         if (empty($results))
             return null;
@@ -39,12 +39,12 @@ class Model {
         return $checklists;
     }
 
-    public static function findChecklistByPublic($public) : array {
+    public static function findChecklistByPublic(bool $public, int $page = 0) : ?array {
         global $dsn, $user, $password;
         $checklists = [];
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
-        $result = $checkGT->findChecklistByPublic($public);
+        $result = $checkGT->findChecklistByPublic($public, $page);
 
         if (empty($result))
             return null;
@@ -57,21 +57,21 @@ class Model {
         return $checklists;
     }
 
-    public static function updateChecklistByName($checklistID, $checklistName) {
+    public static function updateChecklistByName(String $checklistID, String $checklistName) {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
         $checkGT->updateChecklistByName($checklistID, $checklistName);
     }
 
-    public static function updateChecklist($checklistID, Checklist $newChecklist) {
+    public static function updateChecklist(String $checklistID, Checklist $newChecklist) {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
         $checkGT->updateChecklist($checklistID, $newChecklist);
     }
 
-    public static function insertChecklist(Checklist $checklist, $userID) {
+    public static function insertChecklist(Checklist $checklist, String $userID) {
         global $dsn, $user, $password;
 
         $checkGT = new ChecklistGateway(new Connection($dsn, $user, $password));
@@ -82,7 +82,7 @@ class Model {
     }
 
 
-    public static function deleteChecklist($checklistID) {
+    public static function deleteChecklist(String $checklistID) {
         global $dsn, $user, $password;
 
         $db = new Connection($dsn, $user, $password);
@@ -91,7 +91,7 @@ class Model {
         $checkGT->deleteChecklist($checklistID);
     }
 
-    public static function findTaskByID($taskID) : Task {
+    public static function findTaskByID(String $taskID) : Task {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
@@ -103,7 +103,7 @@ class Model {
         return new Task($result['name'], $result['description'], $result['done'], $taskID);
     }
 
-    public static function findTaskByChecklistID($checklistID) : array {
+    public static function findTaskByChecklistID(String $checklistID) : ?array {
         global $dsn, $user, $password;
         $tasks = [];
 
@@ -119,7 +119,7 @@ class Model {
         return $tasks;
     }
 
-    public static function updateTask($taskID, Task $newTask) {
+    public static function updateTask(String $taskID, Task $newTask) {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
@@ -127,7 +127,7 @@ class Model {
         $taskGT->updateTask($taskID, $newTask);
     }
 
-    public static function insertTask(Task $task, $id_checklist) {
+    public static function insertTask(Task $task, String $id_checklist) {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
@@ -135,21 +135,21 @@ class Model {
         $taskGT->insertTask($task, $id_checklist);
     }
 
-    public static function deleteTask($taskID) {
+    public static function deleteTask(String $taskID) {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
         $taskGT->deleteTask($taskID);
     }
 
-    public static function changeTaskState($taskID) {
+    public static function changeTaskState(String $taskID) {
         global $dsn, $user, $password;
 
         $taskGT = new TaskGateway(new Connection($dsn, $user, $password));
         $taskGT->changeTaskState($taskID);
     }
 
-    public static function findUserByID($userID) :      ?User {
+    public static function findUserByID(String $userID) : ?User {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
@@ -161,7 +161,7 @@ class Model {
         return new User($result['name'], $result['surname'], $result['email'], $result['password'], $result['id']);
     }
 
-    public static function findUserByEmail($email) : ?User {
+    public static function findUserByEmail(String $email) : ?User {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));
@@ -182,7 +182,7 @@ class Model {
         $userGT->insertUser($userObj);
     }
 
-    public static function deleteUser($userID) {
+    public static function deleteUser(String $userID) {
         global $dsn, $user, $password;
 
         $userGT = new UserGateway(new Connection($dsn, $user, $password));

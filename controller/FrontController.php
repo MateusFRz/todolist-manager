@@ -88,6 +88,7 @@ class FrontController {
             $errors['exception'] = $exception->getMessage();
         }
 
-        require_once $rep . "/view/vue.php";
+        //is the case an error is catch
+        VisitorController::publicPage();
     }
 }

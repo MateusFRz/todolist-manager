@@ -8,7 +8,7 @@ class TaskGateway {
         $this->db = $db;
     }
 
-    public function findTaskByID($taskID) : array {
+    public function findTaskByID(String $taskID) : ?array {
         try {
             $query = 'SELECT name, description, done FROM `task` WHERE id  = :id;';
 
@@ -22,7 +22,7 @@ class TaskGateway {
         }
     }
 
-    public function findTaskByChecklistID($checklistID) : array {
+    public function findTaskByChecklistID(String $checklistID) : ?array {
         try {
             $query = 'SELECT id, name, description, done FROM task WHERE id_checklist=:id_checklist;';
 
@@ -36,21 +36,21 @@ class TaskGateway {
         }
     }
 
-    public function updateTask($taskID, Task $newTask) {
+    public function updateTask(String $taskID, Task $newTask) {
         try {
             $query = 'UPDATE task SET name=:name, description=:desc, done=:done WHERE id=:id;';
             $this->db->executeQuery($query, array(
                 ':name' => [$newTask->getName(), PDO::PARAM_STR],
                 ':desc' => [$newTask->getDescription(), PDO::PARAM_STR],
                 ':done' => [$newTask->isDone(), PDO::PARAM_BOOL],
-                ':id' => [$taskID, PDO::PARAM_INT]
+                ':id' => [$taskID, PDO::PARAM_STR]
             ));
         } catch (PDOException $exception) {
             throw new RuntimeException($exception->getMessage());
         }
     }
 
-    public function insertTask(Task $task, $id_checklist) {
+    public function insertTask(Task $task, String $id_checklist) {
         try {
             $query = 'INSERT INTO task(id, name, description, done, id_checklist) VALUES(:id, :name, :description, :done, :id_checklist);';
 
@@ -66,7 +66,7 @@ class TaskGateway {
         }
     }
 
-    public function changeTaskState($taskID) {
+    public function changeTaskState(String $taskID) {
         try {
             $query = 'UPDATE task SET done=(NOT done) WHERE id=:id';
 
@@ -78,7 +78,7 @@ class TaskGateway {
         }
     }
 
-    public function deleteTask($taskID) {
+    public function deleteTask(String $taskID) {
         try {
             $query = 'DELETE FROM `task` WHERE id = :id;';
 

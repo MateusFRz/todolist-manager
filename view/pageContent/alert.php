@@ -1,5 +1,5 @@
 <?php
-    if (!empty($errors)):
+    if (!isset($errors)):
     foreach ($errors as $error):
         ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -10,7 +10,7 @@
         </div>
     <?php endforeach;
         endif;
-     if (!empty($successes)):
+     if (!isset($successes)):
     foreach ($successes as $success): ?>
 
         <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -8,7 +8,7 @@ class UserGateway {
         $this->db = $db;
     }
 
-    public function findUserByID($userID) : array {
+    public function findUserByID($userID) : ?array {
         try {
             $query = 'SELECT id,name,surname,email,password FROM user where id=:id;';
 
@@ -22,7 +22,7 @@ class UserGateway {
         }
     }
 
-    public function findUserByEmail($email) : array{
+    public function findUserByEmail(String $email) : ?array{
         try {
             $query = 'SELECT id,name,surname,email,password FROM user where email=:email;';
 
@@ -41,7 +41,7 @@ class UserGateway {
             $query = "INSERT INTO user(id, name, surname, email, password) VALUES (:id, :name, :surname, :email, :hash)";
 
             $this->db->executeQuery($query, array(
-                ':id' => [$user->getId(), PDO::PARAM_STR],
+                ':id' => [$user->getID(), PDO::PARAM_STR],
                 ':name' => [$user->getName(), PDO::PARAM_STR],
                 ':surname' => [$user->getSurname(), PDO::PARAM_STR],
                 ':email' => [$user->getEmail(), PDO::PARAM_STR],
@@ -52,7 +52,7 @@ class UserGateway {
         }
     }
 
-    public function deleteUser($userID) {
+    public function deleteUser(String $userID) {
         try {
             $checklists = Model::findChecklistByUser($userID);
 
