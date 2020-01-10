@@ -6,7 +6,7 @@ class FrontController {
      * FrontController constructor.
      */
     public function __construct() {
-        global $errors, $rep;
+        global $successes, $errors;
         $action = $_REQUEST['action'];
 
         session_start();
@@ -64,9 +64,9 @@ class FrontController {
                     case "removeChecklist":
                         ChecklistController::removeChecklist();
                         return;
-                    case "modifyChecklist":
+                    /*case "modifyChecklist":
                         ChecklistController::modifyChecklist();
-                        return;
+                        return;*/
                     case "addChecklist":
                         ChecklistController::addChecklist();
                         return;
@@ -87,8 +87,6 @@ class FrontController {
         } catch (Exception $exception) {
             $errors['exception'] = $exception->getMessage();
         }
-
-        //is the case an error is catch
         VisitorController::publicPage();
     }
 }

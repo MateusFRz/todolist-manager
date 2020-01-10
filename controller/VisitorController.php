@@ -4,7 +4,8 @@
 class VisitorController {
 
     public static function publicPage() {
-        global $rep;
+        global $rep, $errors, $successes;
+
 
         $pName = "Public page";
 

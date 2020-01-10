@@ -1,8 +1,7 @@
 <body>
 <div class="container">
-
     <?php
-    if (!isset($errors) || !isset($successes))
+    if (isset($errors) || isset($successes))
         require_once "alert.php";?>
 
     <h3><?= (isset($pName) ? $pName : "") ?></h3>

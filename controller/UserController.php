@@ -85,7 +85,7 @@ class UserController {
      * Call the view for the private Checklist
      */
     public static function privateChecklist() {
-        global $rep;
+        global $rep, $successes, $errors;
 
         if (!Validation::isUser($_SESSION['user'])) throw  new RuntimeException("User no valid");
 

@@ -50,7 +50,7 @@ class ChecklistController {
             throw new InvalidArgumentException('Checklist ID isn\'t valid', 400);
 
         Model::deleteChecklist($checklistID);
-        $successes['checklistAdd'] = 'Checklist added success-fully !';
+        $successes['checklistAdd'] = 'Checklist removed success-fully !';
 
         if (Validation::isUser($_SESSION['user']))
             UserController::privateChecklist();
@@ -58,10 +58,11 @@ class ChecklistController {
             VisitorController::publicPage();
     }
 
-    /**
+    /* NOT USED
+     *
      * Modify a Checklist
      * and update it in the Data Base
-     */
+
     public static function modifyChecklist() {
         $checklistID = "";
         $checklistName = "";
@@ -74,5 +75,5 @@ class ChecklistController {
             UserController::privateChecklist();
         else
             VisitorController::publicPage();
-    }
+    }*/
 }
