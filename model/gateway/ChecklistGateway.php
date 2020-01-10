@@ -39,7 +39,7 @@ class ChecklistGateway {
     public function findChecklistByUser(String $userID, int $page) : ?array {
         try {
             $offset = 10 * $page;
-            $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user limit :offset, 10';
+            $query = 'SELECT id,name,visible FROM checklist where id_user=:id_user order by name limit :offset, 10';
 
             $this->db->executeQuery($query, array(
                 ':id_user' => [$userID, PDO::PARAM_STR],
@@ -55,7 +55,7 @@ class ChecklistGateway {
     public function findChecklistByPublic(bool $public, int $page) : ?array {
         try {
             $offset = 10 * $page;
-            $query = 'SELECT id,name,visible FROM checklist where visible=:visible limit :offset, 10';
+            $query = 'SELECT id,name,visible FROM checklist where visible=:visible order by name limit :offset, 10';
 
             $this->db->executeQuery($query, array(
                 ':visible' => [$public, PDO::PARAM_BOOL],
